@@ -1,0 +1,46 @@
+    .body{
+        min-width: 400px; /*provjeriti da li je ovo to sto se trazi*/
+    }
+    .details{
+      display: grid;
+      width: 100%;
+      grid-template-columns: 300px 300px 300px;
+      column-gap: 20px;
+      row-gap: 20px;
+    }
+    .subdetails{
+        display: grid;
+        grid-template-columns: 1fr 1fr ;
+    }
+    .leftAlign{
+      float: left;
+    }
+    .rigthAlign{
+      float: right;
+    }
+    .detailsButton{ /*smijem li margine dodati?*/
+      padding-bottom: 2%;
+    }
+    .pictures{
+        width: 300px; /*zasto ne radi sa %?*/
+        height: 200px; /*PROVJERITI ZA VELICINU SLIKE*/
+    }
+    .centerAlignText{
+        text-align: center;
+    }
+    .centerAlign{
+    display: flex;   /*provjeriti smijem li koristiti flex?*/
+    justify-content: center; 
+    }
+    .stan{
+        background-color: white;
+    }
+    .kuca{
+        background-color: powderblue;
+    }
+    .pp{
+        background-color: green;
+    }
+    .centerAlign2{
+        margin: 0 auto;
+    }

@@ -1,0 +1,27 @@
+    body{
+        background-color: #fdf1d3;
+        font-size: larger;
+      }
+      #meni{
+      display: flex;
+      margin-top: 0;
+      width: 100%;
+      height: min-content;
+      margin-left: -2%;
+      margin-right: 0%;
+      float: left;
+      }
+      ul{
+      width: 100%;
+      list-style-type: none;
+      }   
+      li{
+      display:inline;
+      }
+      a:hover{
+        color: #ff9900;  /*zasto se ne vidi na tekstu???*/
+      }
+      a{
+        margin-right: 1.5%;
+        font-weight: bold;
+      }

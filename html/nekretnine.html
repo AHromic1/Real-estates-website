@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!--VIDJETI ZA SMANJIVANJE!!! Provjeriti na sta se misli pod svim onim piksleima-->
+    <!--DA LI TREBA DODAATI BORDERS NA KARTICE?-->
+    <style>
+    .body{
+        min-width: 400px; /*provjeriti da li je ovo to sto se trazi*/
+    }
+    .details{
+      display: grid;
+      width: 100%;
+      grid-template-columns: 300px 300px 300px;
+      column-gap: 20px;
+      row-gap: 20px;
+    }
+    .subdetails{
+        display: grid;
+        grid-template-columns: 1fr 1fr ;
+    }
+    .leftAlign{
+      float: left;
+    }
+    .rigthAlign{
+      float: right;
+    }
+    .detailsButton{ /*smijem li margine dodati?*/
+      padding-bottom: 2%;
+    }
+    .pictures{
+        width: 300px; /*zasto ne radi sa %?*/
+        height: 200px; /*PROVJERITI ZA VELICINU SLIKE*/
+    }
+    .centerAlignText{
+        text-align: center;
+    }
+    .centerAlign{
+    display: flex;   /*provjeriti smijem li koristiti flex?*/
+    justify-content: center; 
+    }
+    .stan{
+        background-color: white;
+    }
+    .kuca{
+        background-color: powderblue;
+    }
+    .pp{
+        background-color: green;
+    }
+    .centerAlign2{
+        margin: 0 auto;
+    }
+   
+    </style>
+  </head>
+  <body>
+    <object data="menu.html" width="100%" height="100%"></object>
+
+    <!--PROVJERITI ZA IZGLED MENIJA!-->
+ 
+    <div id="stan">
+      <h2>Stan</h2>
+      <div class="details">
+        <div class="stan">
+        <img class="pictures centerAlign" src="https://www.aveliving.com/AVE/media/Property_Images/Florham%20Park/hero/flor-apt-living-(2)-hero.jpg?ext=.jpg" alt="Prvi stan"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
+       <div class="subdetails">
+        <p class="leftAlign">Luksuzni stan</p>
+        <p class="rightAlign">200 000 KM</p>
+        <p class="leftAlign">100 kvadratnih metara</p>
+    </div> 
+    <div class="centerAlign detailsButton">
+        <input class="detailsButton" type ="button" value="Detalji">
+    </div>
+    </div>
+      <!--kraj prvog stana-->
+      <div class="stan">
+        <img class="pictures centerAlign" src="https://www.apartments.com/blog/sites/default/files/styles/x_large_hq/public/image/2023-06/ParkLine-apartment-in-Miami-FL.jpg?itok=kQmw64UU" alt="Stan u centru"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
+       <div class="subdetails">
+        <p class="leftAlign">Stan u centru</p>
+        <p class="rightAlign">300 000 KM</p>
+        <p class="leftAlign">90 kvadratnih metara</p>
+        
+    </div> 
+    <div class="centerAlign detailsButton">
+        <input type="button" value="Detalji">
+    </div>
+    </div>
+    
+    <!--kraj drugog stana-->
+    <div class="stan">
+        <img class="pictures centerAlign" src="https://media.newyorker.com/photos/590974c9ebe912338a3778c0/master/w_2560%2Cc_limit/Greenspan-MicroApartments.jpg" alt="Budzet stan"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
+       <div class="subdetails">
+        <p class="leftAlign">Budzet stan</p>
+        <p class="rightAlign">60 000 KM</p>
+        <p class="leftAlign">25 kvadratnih metara</p>
+        
+    </div> 
+    <div class="centerAlign detailsButton">
+        <input type="button" value="Detalji">
+    </div>
+    </div>
+    
+    <!--kraj treceg stana-->
+    <div class="stan">
+        <img class="pictures centerAlign" src="https://www.apartments.com/blog/sites/default/files/styles/x_large_hq/public/image/2023-06/ParkLine-apartment-in-Miami-FL.jpg?itok=kQmw64UU" alt="Stan u centru"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
+       <div class="subdetails">
+        <p class="leftAlign">Stan u centru</p>
+        <p class="rightAlign">300 000 KM</p>
+        <p class="leftAlign">90 kvadratnih metara</p>
+        
+    </div> 
+    <div class="centerAlign detailsButton">
+        <input type="button" value="Detalji">
+    </div>
+    </div>
+    <!--kraj cetvrtog stana-->
+    </div>
+    </div>
+    
+    
+    <div id="kuca">
+      <p>Kuća</p>
+      <div class="details">
+        <div class="kuca">
+        <img class="pictures centerAlign" src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/home-improvement/wp-content/uploads/2022/07/download-23.jpg" alt="Koliba"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
+       <div class="subdetails">
+        <p class="leftAlign">Koliba</p>
+        <p class="rightAlign">100 000 KM</p>
+        <p class="leftAlign">70 kvadratnih metara</p>
+        
+    </div> 
+    <div class="centerAlign detailsButton">
+        <input type="button" value="Detalji">
+    </div>
+    </div>
+      <!--kraj prve kuce-->
+      <div class="kuca">
+        <img class="pictures centerAlign" src="https://i.pinimg.com/550x/fc/07/40/fc0740d7c26d93974e117cb88a81bc36.jpg" alt="Moderna kuca"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
+       <div class="subdetails">
+        <p class="leftAlign">Moderna kuca</p>
+        <p class="rightAlign">300 000 KM</p>
+        <p class="leftAlign">90 kvadratnih metara</p>
+        
+    </div> 
+    <div class="centerAlign detailsButton">
+        <input type="button" value="Detalji">
+    </div>
+    </div>
+    
+    <!--kraj druge kuce-->
+    <div class="kuca">
+        <img class="pictures centerAlign" src="https://www.hollywoodreporter.com/wp-content/uploads/2023/03/image_h_01-H-2023.jpg?w=1296" alt="Vila"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
+       <div class="subdetails">
+        <p class="leftAlign">Vila</p>
+        <p class="rightAlign">60 000 KM</p>
+        <p class="leftAlign">25 kvadratnih metara</p>
+        
+    </div> 
+    <div class="centerAlign detailsButton">
+        <input type="button" value="Detalji">
+    </div>
+    </div>
+      <!--kraj trece kuce-->
+    </div>
+    </div>
+
+    <p>Poslovni prostor</p>
+    <div id="pp">
+        <div class="details">
+            <div class="pp">
+            <img class="pictures centerAlign" src="https://www.wework.com/ideas/wp-content/uploads/sites/4/2020/10/Web_150DPI-2018_11_19_WW_SF_00860083_v1-1120x630.jpg" alt="Kancelarije"> 
+           <div class="subdetails">
+            <p class="leftAlign">Kancelarije</p>
+            <p class="rightAlign">220 000 KM</p>
+            <p class="leftAlign">110 kvadratnih metara</p>
+            
+        </div> 
+        <div class="centerAlign detailsButton">
+            <input type="button" value="Detalji">
+        </div>
+        </div>
+          <!--kraj prvog prostora-->
+          </div>
+    </div> 
+
+
+    
+
+
+
+  </body>
+</html>
