@@ -1,45 +1,30 @@
 <!doctype html>
 <html lang="hr">
   <head>
-    <link rel="stylesheet" type="text/css" href="../css/menuStil.css"> <!--moram prvo izaci iz html foldera!-->
+    <link rel="stylesheet" type="text/css" href="../css/profilStil.css"> <!--moram prvo izaci iz html foldera!-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <style>
-        input{
-            float: right;
-        }
-        label{
-            float: left;
-        }
-        .info{
-            width: 26%;
-        }
-        input{
-            width: 180px;
-            height: 50px;
-        }
-    </style>
   </head>
-  <body>
+  <body style="background-color: #fdf1d3;"> <!--zasto ne povlaci ovo iz stila?-->
+    <object data="menu.html" width="100%" height="100%"></object>
 <!--FONTOVI I TO?-->
     <!--DA LI E FORM ILI?-->
+    <div class="centerAlign">
+        <div>
+            <div class="imgPos">
+        <img src="https://i.pinimg.com/736x/17/57/1c/17571cdf635b8156272109eaa9cb5900.jpg" alt="Profile picture">
+            </div>
         <div class="info">
-        <div>
         <label for="ime">Ime:</label>
-        <input type="text" id="ime" name="ime" placeholder="Input Field"><br>
-        <div>
-        <div><label for="prezime">Prezime:</label>
-        <input type="text" id="prezime" name="prezime" placeholder="Input Field"><br>
-        </div>
-        <div>
+        <input type="text" id="ime" name="ime" placeholder="Input Field" readonly>
+        <label for="prezime">Prezime:</label>
+        <input type="text" id="prezime" name="prezime" placeholder="Input Field" readonly>
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" placeholder="Input Field"><br>
-        </div>
-        <div>
+        <input type="text" id="username" name="username" placeholder="Input Field" readonly>
         <label for="password">Password:</label>
-        <input type="text" id="password" name="password" placeholder="Input Field"><br>
+        <input type="text" id="password" name="password" placeholder="Input Field" readonly>
         </div>
         </div>
-
+        </div>
   </body>
 </html>

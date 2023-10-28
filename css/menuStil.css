@@ -17,9 +17,10 @@
       }   
       li{
       display:inline;
+      color: blue;
       }
       a:hover{
-        color: #ff9900;  /*zasto se ne vidi na tekstu???*/
+        color: #ff9900;  
       }
       a{
         margin-right: 1.5%;

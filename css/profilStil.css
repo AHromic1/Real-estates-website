@@ -1,27 +1,40 @@
-    body{
-        background-color: #fdf1d3;
-        font-size: larger;
-      }
-      #meni{
-      display: flex;
-      margin-top: 0;
-      width: 100%;
-      height: min-content;
-      margin-left: -2%;
-      margin-right: 0%;
-      float: left;
-      }
-      ul{
-      width: 100%;
-      list-style-type: none;
-      }   
-      li{
-      display:inline;
-      }
-      a:hover{
-        color: #ff9900;  /*zasto se ne vidi na tekstu???*/
-      }
-      a{
-        margin-right: 1.5%;
-        font-weight: bold;
-      }
+body{
+  background-color: #fdf1d3;
+}
+input{
+  float: right;
+}
+label{
+  float: left;
+}
+.centerAlign{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10%;
+  margin-top: -3%;
+}
+.info{
+  width: 26%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 110px;
+  row-gap: 40px;
+}
+input{ /*provjeriti smijem li koristiti input?*/
+  width: 180px;
+  height: 50px;
+  border: none;
+  cursor: not-allowed;
+  background-color: white;
+  box-shadow: 2px 2px blur spread grey;
+}
+label{
+  margin: auto 0;
+}
+img{
+  height: 200px;
+  width: 180px;
+}
+.imgPos{
+  margin-bottom: 10%;
+}
