@@ -4,15 +4,42 @@
     <link rel="stylesheet" type="text/css" href="../css/menuStil.css"> <!--moram prvo izaci iz html foldera!-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <style>
+        input{
+            float: right;
+        }
+        label{
+            float: left;
+        }
+        .info{
+            width: 26%;
+        }
+        input{
+            width: 180px;
+            height: 50px;
+        }
+    </style>
   </head>
   <body>
-    <div id="meni">
-    <ul>
-      <li><a href="">Profil</a></li>
-      <li><a href="">Nekretnine</a></li>
-      <li><a href="">Detalji</a></li>
-      <li><a href="">Prijava</a></li>
-    </ul>
-  </div>
+<!--FONTOVI I TO?-->
+    <!--DA LI E FORM ILI?-->
+        <div class="info">
+        <div>
+        <label for="ime">Ime:</label>
+        <input type="text" id="ime" name="ime" placeholder="Input Field"><br>
+        <div>
+        <div><label for="prezime">Prezime:</label>
+        <input type="text" id="prezime" name="prezime" placeholder="Input Field"><br>
+        </div>
+        <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Input Field"><br>
+        </div>
+        <div>
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" placeholder="Input Field"><br>
+        </div>
+        </div>
+
   </body>
 </html>

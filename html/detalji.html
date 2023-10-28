@@ -1,18 +1,55 @@
 <!doctype html>
 <html lang="hr">
   <head>
-    <link rel="stylesheet" type="text/css" href="../css/menuStil.css"> <!--moram prvo izaci iz html foldera!-->
+    <link rel="stylesheet" type="text/css" href="../css/detaljiStil.css"> <!--moram prvo izaci iz html foldera!-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <!--Ne mora biti isto??-->
   </head>
-  <body>
-    <div id="meni">
-    <ul>
-      <li><a href="">Profil</a></li>
-      <li><a href="">Nekretnine</a></li>
-      <li><a href="">Detalji</a></li>
-      <li><a href="">Prijava</a></li>
+  <body style="background-color:#fdf1d3;">
+    <object data="menu.html" width="100%" height="100%"></object>
+    <div class="alignment">
+    <h3 class="posSubheading">OSNOVNO</h3>
+    <div id="osnovno"> 
+        <div class="centerAlign pos">
+        <img src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/home-improvement/wp-content/uploads/2022/07/download-23.jpg" alt="Koliba"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
+        </div>
+        <p class="pos"><b >Naziv:</b>Koliba</p>
+        <p class="pos"><b>Kvadratura:</b>100 000 KM</p>
+        <p class="pos"><b>Cijena:</b>70 m2</p>
+    </div>
+
+    <h3 class="posSubheading">DETALJI</h3>
+    <div id="detalji"> 
+        <div class="details">
+            <p><b>Tip grijanja:</b> plin</p>
+            <p><b>Lokacija:</b> Stari Grad</p>
+            <p><b>Datum izgradnje:</b> 2019</p>
+            <p><b>Datum objave:</b> 1.10.2023.</p>
+        </div>
+        <p class="pos2 pos"><b>Opis: </b>Kuća s pogledom na grad. Dvije spavaće sobe, dva sprata s pokrovljem. Jedno kupatilo, kuhinja i dnevna soba.
+        Postoji mogućnost uvođenja centralnog grijanja.</p>
+    </div>
+
+    <h3 class="posSubheading">UPITI</h3>
+    <div id="upiti"> 
+        <ul>
+        <li>
+            <div class="upit posSubheading">
+            <p><b>username1</b></p>
+            <p>Odlicna nekretnina! Lokacija je odlična, nadomak grada.</p>
+            </div>
+        </li>
+        <li>
+            <div class="upit posSubheading">
+            <p><b>username2</b></p>
+            <p>Zanimljiva nekretnina, ukusno uređena. Vlasnici su pristupačni i ljubazni.</p>
+            </div>
+        </li>
     </ul>
-  </div>
+    </div>
+
+</div>
+
   </body>
 </html>

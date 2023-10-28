@@ -1,5 +1,10 @@
     .body{
         min-width: 400px; /*provjeriti da li je ovo to sto se trazi*/
+        background-color: #fdf1d3;
+    }
+    .alignment{
+        margin-left: 5%;
+        margin-right: 5%;
     }
     .details{
       display: grid;

@@ -1,65 +1,16 @@
 <!doctype html>
 <html lang="hr">
   <head>
+    <link rel="stylesheet" type="text/css" href="../css/nekretnineStil.css">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <!--VIDJETI ZA SMANJIVANJE!!! Provjeriti na sta se misli pod svim onim piksleima-->
     <!--DA LI TREBA DODAATI BORDERS NA KARTICE?-->
-    <style>
-    .body{
-        min-width: 400px; /*provjeriti da li je ovo to sto se trazi*/
-    }
-    .details{
-      display: grid;
-      width: 100%;
-      grid-template-columns: 300px 300px 300px;
-      column-gap: 20px;
-      row-gap: 20px;
-    }
-    .subdetails{
-        display: grid;
-        grid-template-columns: 1fr 1fr ;
-    }
-    .leftAlign{
-      float: left;
-    }
-    .rigthAlign{
-      float: right;
-    }
-    .detailsButton{ /*smijem li margine dodati?*/
-      padding-bottom: 2%;
-    }
-    .pictures{
-        width: 300px; /*zasto ne radi sa %?*/
-        height: 200px; /*PROVJERITI ZA VELICINU SLIKE*/
-    }
-    .centerAlignText{
-        text-align: center;
-    }
-    .centerAlign{
-    display: flex;   /*provjeriti smijem li koristiti flex?*/
-    justify-content: center; 
-    }
-    .stan{
-        background-color: white;
-    }
-    .kuca{
-        background-color: powderblue;
-    }
-    .pp{
-        background-color: green;
-    }
-    .centerAlign2{
-        margin: 0 auto;
-    }
-   
-    </style>
   </head>
-  <body>
+  <body style="background-color: #fdf1d3;">
     <object data="menu.html" width="100%" height="100%"></object>
-
+    <div class="alignment">
     <!--PROVJERITI ZA IZGLED MENIJA!-->
- 
     <div id="stan">
       <h2>Stan</h2>
       <div class="details">
@@ -68,7 +19,7 @@
        <div class="subdetails">
         <p class="leftAlign">Luksuzni stan</p>
         <p class="rightAlign">200 000 KM</p>
-        <p class="leftAlign">100 kvadratnih metara</p>
+        <p class="leftAlign">100 m2</p>
     </div> 
     <div class="centerAlign detailsButton">
         <input class="detailsButton" type ="button" value="Detalji">
@@ -80,7 +31,7 @@
        <div class="subdetails">
         <p class="leftAlign">Stan u centru</p>
         <p class="rightAlign">300 000 KM</p>
-        <p class="leftAlign">90 kvadratnih metara</p>
+        <p class="leftAlign">90 m2</p>
         
     </div> 
     <div class="centerAlign detailsButton">
@@ -94,7 +45,7 @@
        <div class="subdetails">
         <p class="leftAlign">Budzet stan</p>
         <p class="rightAlign">60 000 KM</p>
-        <p class="leftAlign">25 kvadratnih metara</p>
+        <p class="leftAlign">25 m2</p>
         
     </div> 
     <div class="centerAlign detailsButton">
@@ -108,7 +59,7 @@
        <div class="subdetails">
         <p class="leftAlign">Stan u centru</p>
         <p class="rightAlign">300 000 KM</p>
-        <p class="leftAlign">90 kvadratnih metara</p>
+        <p class="leftAlign">90 m2</p>
         
     </div> 
     <div class="centerAlign detailsButton">
@@ -121,14 +72,14 @@
     
     
     <div id="kuca">
-      <p>Kuća</p>
+      <h2>Kuća</h2>
       <div class="details">
         <div class="kuca">
         <img class="pictures centerAlign" src="https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/home-improvement/wp-content/uploads/2022/07/download-23.jpg" alt="Koliba"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
        <div class="subdetails">
         <p class="leftAlign">Koliba</p>
         <p class="rightAlign">100 000 KM</p>
-        <p class="leftAlign">70 kvadratnih metara</p>
+        <p class="leftAlign">70 m2</p>
         
     </div> 
     <div class="centerAlign detailsButton">
@@ -141,7 +92,7 @@
        <div class="subdetails">
         <p class="leftAlign">Moderna kuca</p>
         <p class="rightAlign">300 000 KM</p>
-        <p class="leftAlign">90 kvadratnih metara</p>
+        <p class="leftAlign">90 m2</p>
         
     </div> 
     <div class="centerAlign detailsButton">
@@ -154,8 +105,8 @@
         <img class="pictures centerAlign" src="https://www.hollywoodreporter.com/wp-content/uploads/2023/03/image_h_01-H-2023.jpg?w=1296" alt="Vila"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
        <div class="subdetails">
         <p class="leftAlign">Vila</p>
-        <p class="rightAlign">60 000 KM</p>
-        <p class="leftAlign">25 kvadratnih metara</p>
+        <p class="rightAlign">600 000 KM</p>
+        <p class="leftAlign">25 m2</p>
         
     </div> 
     <div class="centerAlign detailsButton">
@@ -166,15 +117,15 @@
     </div>
     </div>
 
-    <p>Poslovni prostor</p>
     <div id="pp">
+        <h2>Poslovni prostor</h2>
         <div class="details">
             <div class="pp">
             <img class="pictures centerAlign" src="https://www.wework.com/ideas/wp-content/uploads/sites/4/2020/10/Web_150DPI-2018_11_19_WW_SF_00860083_v1-1120x630.jpg" alt="Kancelarije"> 
            <div class="subdetails">
             <p class="leftAlign">Kancelarije</p>
             <p class="rightAlign">220 000 KM</p>
-            <p class="leftAlign">110 kvadratnih metara</p>
+            <p class="leftAlign">110 m2</p>
             
         </div> 
         <div class="centerAlign detailsButton">
@@ -184,11 +135,6 @@
           <!--kraj prvog prostora-->
           </div>
     </div> 
-
-
-    
-
-
-
+    </div>
   </body>
 </html>

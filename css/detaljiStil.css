@@ -1,27 +1,39 @@
-    body{
-        background-color: #fdf1d3;
-        font-size: larger;
-      }
-      #meni{
-      display: flex;
-      margin-top: 0;
-      width: 100%;
-      height: min-content;
-      margin-left: -2%;
-      margin-right: 0%;
-      float: left;
-      }
-      ul{
-      width: 100%;
-      list-style-type: none;
-      }   
-      li{
-      display:inline;
-      }
-      a:hover{
-        color: #ff9900;  /*zasto se ne vidi na tekstu???*/
-      }
-      a{
-        margin-right: 1.5%;
-        font-weight: bold;
-      }
+.body{  /*da li i u nekretninama i sl. treba da imaju margine sa strane?!*/
+    background-color: #fdf1d3;    
+}
+.alignment{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.centerAlign{
+display: flex;
+justify-content: center; 
+}
+.details{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 5%;
+}
+.pos{
+    margin-bottom: 5%;
+}
+.posSubheading{
+    margin-bottom: 3%;
+}
+.pos2{
+    margin-top: 5%;
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+li{
+    margin: 0;
+}
+.upit{
+    border: 1px solid black;
+    background-color: white;
+    width: 100%;
+    height: fit-content;
+    padding: 2% 2% 1% 1%;
+}
