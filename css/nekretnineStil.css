@@ -1,5 +1,5 @@
     .body{
-        min-width: 400px; /*provjeriti da li je ovo to sto se trazi*/
+        min-width: 400px; 
         background-color: #fdf1d3;
     }
     .alignment{
@@ -23,18 +23,18 @@
     .rigthAlign{
       float: right;
     }
-    .detailsButton{ /*smijem li margine dodati?*/
+    .detailsButton{ /*smijem li margine dodati? Da*/
       padding-bottom: 2%;
     }
     .pictures{
-        width: 300px; /*zasto ne radi sa %?*/
-        height: 200px; /*PROVJERITI ZA VELICINU SLIKE*/
+        width: 300px; 
+        height: 200px; 
     }
     .centerAlignText{
         text-align: center;
     }
     .centerAlign{
-    display: flex;   /*provjeriti smijem li koristiti flex?*/
+    display: flex; 
     justify-content: center; 
     }
     .stan{
