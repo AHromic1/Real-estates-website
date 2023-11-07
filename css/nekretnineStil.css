@@ -19,6 +19,7 @@
     }
     .leftAlign{
       float: left;
+      margin-left: 5px;
     }
     .rigthAlign{
       float: right;
