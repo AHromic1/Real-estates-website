@@ -1,0 +1,17 @@
+U profilStil.css file sam dodala @media naredbu, specificirajući da se odnosi na ekrane minimalne širine od 500 px te dodajući odgovarajuće margine i display 
+kako bih postigla izgled što sličniji u postavci,
+kao i naredbu float: left, kako bi se profilna slika pozicionirala s lijeve strane:
+
+@media(min-width: 500px){
+  .imgPos{
+    display: inline;
+    float: left;
+    margin-top: 40%;
+    margin-right: 10%;
+  }
+}
+
+(imgPos se odnosi na klasu koju sam definisala s ciljem pozicioniranja profilne slike na ekranu).
+
+Izmijenjeni .css file sam još jednom validirala u istom validatoru koji je naveden i u prethodnom dodatnom zadatku te nisu prikazane nikakve greške.
+
