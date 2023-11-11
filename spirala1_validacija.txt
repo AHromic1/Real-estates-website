@@ -1,0 +1,4 @@
+Validacija je već bila urađena prije predaje spirale te nije bilo prijavljenih grešaka. 
+
+Koristila sam W3C validator za .html fileove (https://validator.w3.org/#validate_by_upload) te W3C validator za .css fileove (https://jigsaw.w3.org/css-validator/#validate_by_upload).
+
