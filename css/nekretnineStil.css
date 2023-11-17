@@ -23,6 +23,7 @@
     }
     .rigthAlign{
       float: right;
+      margin-left: 30px;
     }
     .detailsButton{ /*smijem li margine dodati? Da*/
       padding-bottom: 2%;

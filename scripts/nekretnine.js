@@ -6,24 +6,76 @@
 
     function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
       // pozivanje metode za filtriranje
-      instancaModula.filtrirajNekretnine({ tip_nekretnine: tip_nekretnine });
+      let nekretnine = instancaModula.filtrirajNekretnine({ tip_nekretnine: tip_nekretnine });
       // iscrtavanje elemenata u divReferenca element
-      let nekretnine = instancaModula.listaNekretnina;
+      let h2Title = document.createElement("h2");
+      let divDetails = document.createElement("div");
+      if(tip_nekretnine === "Stan"){
+        h2Title.textContent = "Stan";
+        h2Title.classList.add("stanPos");
+        }
+        else if(tip_nekretnine === "Kuca")
+        h2Title.textContent = "Kuca";
+        else
+        h2Title.textContent = "Poslovni prostor";
+       
       for(let x of nekretnine){
+          let divNekretnina = document.createElement("div");
+          let imgNekretnina = document.createElement("img");
+          let divSubdetails = document.createElement("div");
           let p1 = document.createElement("p");
           let p2 = document.createElement("p");
           let p3 = document.createElement("p");
           let noviRed = document.createElement("br");
-
+          let divButton = document.createElement("div");
+          let detailsButton = document.createElement("input");
+        
+          if(x.tip_nekretnine === "Stan"){
+          divNekretnina.classList.add("stan");
+          imgNekretnina.src = '../images/stan1.jpg';
+          imgNekretnina.alt = 'Stan';
+          }
+          else if(x.tip_nekretnine === "Kuca"){
+            divNekretnina.classList.add("kuca");
+            imgNekretnina.src = '../images/kuca2.jpg';
+            imgNekretnina.alt = 'Kuca';
+            }
+          
+          else{
+            divNekretnina.classList.add("pp");
+            imgNekretnina.src = '../images/pp1.jpg';
+            imgNekretnina.alt = 'Poslovni prostor';
+            }
+          
+         
+          divDetails.classList.add("details");
+          imgNekretnina.classList.add("pictures");
+          imgNekretnina.classList.add("centerAlign");
+          divSubdetails.classList.add("subdetails");
+          divNekretnina.appendChild(imgNekretnina);
+          divNekretnina.appendChild(divSubdetails);
+          p1.classList.add("leftAlign");
+          p2.classList.add("rightAlign");
+          p3.classList.add("leftAlign");
           p1.textContent = x.naziv;
           p2.textContent = x.cijena + " KM";
           p3.textContent = x.kvadratura + "m2"; 
-          divReferenca.appendChild(p1);
-          divReferenca.appendChild(noviRed);
-          divReferenca.appendChild(p2);
-          divReferenca.appendChild(noviRed);
-          divReferenca.appendChild(p3);
-          divReferenca.appendChild(noviRed);
+          divReferenca.appendChild(h2Title);
+          divDetails.appendChild(divNekretnina);
+          divSubdetails.appendChild(p1);
+          divSubdetails.appendChild(noviRed);
+          divSubdetails.appendChild(p2);
+          divSubdetails.appendChild(noviRed);
+          divSubdetails.appendChild(p3);
+          divSubdetails.appendChild(noviRed);
+          detailsButton.value = 'Detalji';
+          detailsButton.type = 'button';
+          divButton.classList.add("centerAlign");
+          divButton.classList.add("detailsButton");
+          divNekretnina.appendChild(divButton);
+          divButton.appendChild(detailsButton);
+          divReferenca.appendChild(divDetails);
+
       }
   }
   
