@@ -8,16 +8,7 @@
       // pozivanje metode za filtriranje
       let nekretnine = instancaModula.filtrirajNekretnine({ tip_nekretnine: tip_nekretnine });
       // iscrtavanje elemenata u divReferenca element
-      let h2Title = document.createElement("h2");
       let divDetails = document.createElement("div");
-      if(tip_nekretnine === "Stan"){
-        h2Title.textContent = "Stan";
-        h2Title.classList.add("stanPos");
-        }
-        else if(tip_nekretnine === "Kuca")
-        h2Title.textContent = "Kuca";
-        else
-        h2Title.textContent = "Poslovni prostor";
        
       for(let x of nekretnine){
           let divNekretnina = document.createElement("div");
@@ -46,7 +37,6 @@
             imgNekretnina.src = '../images/pp1.jpg';
             imgNekretnina.alt = 'Poslovni prostor';
             }
-          
          
           divDetails.classList.add("details");
           imgNekretnina.classList.add("pictures");
@@ -60,7 +50,6 @@
           p1.textContent = x.naziv;
           p2.textContent = x.cijena + " KM";
           p3.textContent = x.kvadratura + "m2"; 
-          divReferenca.appendChild(h2Title);
           divDetails.appendChild(divNekretnina);
           divSubdetails.appendChild(p1);
           divSubdetails.appendChild(noviRed);
