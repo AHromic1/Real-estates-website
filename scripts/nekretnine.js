@@ -63,6 +63,7 @@
           divButton.classList.add("detailsButton");
           divNekretnina.appendChild(divButton);
           divButton.appendChild(detailsButton);
+          if(divReferenca)
           divReferenca.appendChild(divDetails);
 
       }
@@ -131,4 +132,11 @@
   spojiNekretnine(divStan, nekretnine, "Stan");
   spojiNekretnine(divKuca, nekretnine, "Kuća");
   spojiNekretnine(divPp, nekretnine, "Poslovni prostor");
+
+  const kriterij = {
+    pogresan:"nepotreban atribut"
+};
   
+console.log("testiranje");
+let rez = nekretnine.filtrirajNekretnine(kriterij);
+console.log(rez);

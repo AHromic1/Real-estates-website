@@ -2,6 +2,10 @@ let SpisakNekretnina = function(){
     const listaNekretnina = [];
     const listaKorisnika = [];
 
+    /*Pitati za getElementById
+    testni folder?
+    dodati nekretnina jos?*/ 
+
     let init = function (listaNekretnina, listaKorisnika){
         this.listaNekretnina = listaNekretnina;
         console.log(this.listaNekretnina);
@@ -11,7 +15,14 @@ let SpisakNekretnina = function(){
     
 
     let filtrirajNekretnine =  function(kriterij){
+        if(Object.entries(kriterij).length === 0) return this.listaNekretnina;  //ako nema kriterija sve nekretnine mogu
+        //kriterij nije prazan, ali ne sadrzi odgovarajuca polja:
+        if(kriterij.tip_nekretnine === undefined && kriterij.min_kvadratura === undefined && 
+            kriterij.max_kvadratura === undefined && kriterij.min_cijena === undefined &&
+            kriterij.max_cijena === undefined) return this.listaNekretnina;  //vraca se originalna lista, nema validnih kriterija
+
         let rezultat = [], rezultat1 = [], rezultat2 = [], rezultat3 = [], rezultat4 = []; //prazna lista
+       
         //if(Object.keys(kriterij).length() === 0)  //ako je obj prazan
        // return listaNekretnina;
 
@@ -29,7 +40,7 @@ let SpisakNekretnina = function(){
 
        if(kriterij.min_kvadratura !== undefined){ 
             let iterativnaLista = [];
-            if(rezultat.length !== 0){ //ako je vec nesto pohranjeno u rezultt
+            if(rezultat.length !== 0){ //ako je vec nesto pohranjeno u rezultat
                 iterativnaLista = rezultat;
                 rezultat = [];
             }
