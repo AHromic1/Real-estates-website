@@ -26,7 +26,7 @@
           imgNekretnina.src = '../images/stan1.jpg';
           imgNekretnina.alt = 'Stan';
           }
-          else if(x.tip_nekretnine === "Kuca"){
+          else if(x.tip_nekretnine === "Kuća"){
             divNekretnina.classList.add("kuca");
             imgNekretnina.src = '../images/kuca2.jpg';
             imgNekretnina.alt = 'Kuca';
@@ -134,7 +134,7 @@
   spojiNekretnine(divPp, nekretnine, "Poslovni prostor");
 
   const kriterij = {
-    pogresan:"nepotreban atribut"
+    min_cijena:"100000"
 };
   
 console.log("testiranje");
