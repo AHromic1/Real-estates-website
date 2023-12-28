@@ -1,26 +1,78 @@
-<!doctype html>
+<!-- prijava.html -->
+
+<!DOCTYPE html>
 <html lang="hr">
-  <head>
-    <link rel="stylesheet" type="text/css" href="../css/prijavaStil.css">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Prijava</title>
-  </head>
-  <body>
-    <object data="menu.html" class="meniPos"></object>
-      <div class="centerAlign">
-        <div>
-            <div class="imgPos">
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/prijavaStil.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Prijava</title>
+</head>
+<body>
+<object data="menu.html" class="meniPos"></object> 
+ <!--<div id="meni">
+  <ul>
+    <li><a href="/profil.html" target="_blank">Profil</a></li>
+    <li><a href="/nekretnine.html" target="_blank">Nekretnine</a></li>
+    <li><a href="/detalji.html" target="_blank">Detalji</a></li>
+    <li id="loginLink"><a href="/prijava.html" target="_blank">Prijava</a></li>
+    <li style="display: none;" id="logoutLink"><a href="/prijava.html" target="_blank">Odjava</a></li>
+  </ul>
+</div> -->
+ <!---->
+  <div class="centerAlign">
+    <div>
+      <div class="imgPos">
         <img src="../images/profil.jpg" alt="Profile picture">
-            </div>
-            <div class="info">
-              <label for="username">Username:</label>
-              <input class="inputStyle" type="text" id="username" name="username" placeholder="Username" >
-              <label for="password">Password:</label>
-              <input class="inputStyle" type="text" id="password" name="password" placeholder="Password" >
-              <input class="logInButton" type="submit" value="Prijava">
-              </div>
-        </div>
-        </div>
-  </body>
+      </div>
+      <div class="info">
+        <label for="username">Username:</label>
+        <input class="inputStyle" type="text" id="username" name="username" placeholder="Username">
+        <label for="password">Password:</label>
+        <input class="inputStyle" type="password" id="password" name="password" placeholder="Password">
+      </div>
+    </div>
+  </div>
+  <button id="prijavaBttn">Prijava</button>
+
+  <script src="scripts/poziviAjax.js"></script>
+  <script>
+
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const prijavaButton = document.getElementById('prijavaBttn');
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      //mijenjanje login logout
+      const prijava = document.getElementById('loginLink');
+      const odjava = document.getElementById('logoutLink');
+
+        prijavaButton.addEventListener('click', function () {
+          console.log("clidkedddd");
+          const plainTextPassword = passwordInput.value;
+  
+          console.log('Button clicked! Username:', usernameInput.value, 'Password:', plainTextPassword);
+          //////////////////////////////////login///////////////////////////////////////////////////////
+          
+          PoziviAjax.postLogin(usernameInput.value, plainTextPassword, function (error, data) {
+           // console.log("desilo se ovo");
+        if (error) {
+          prijava.style.display = 'block';
+        odjava.style.display = 'none';
+          console.error('Error while logging in:', error);
+        } else {
+          prijava.style.display = 'none';
+        odjava.style.display = 'block';
+          console.log("Successful log in");
+        }
+      });
+    
+
+          //////////////////////////////////////////////////////////////////////////////////////////////
+        });
+      
+    });
+  </script>
+</body>
 </html>

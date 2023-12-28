@@ -25,7 +25,39 @@
       <h2>Poslovni prostor</h2>
        
     </div>
-    <script src="../scripts/SpisakNekretnina.js"></script>
-    <script src="../scripts/nekretnine.js"></script>
+   <!-- <script src="../poziviAjax.js"></script> -->
+   <script src="scripts/poziviAjax.js"></script>
+   <script src="scripts/SpisakNekretnina.js"></script>
+   <script src="scripts/nekretnine.js"></script>
+   <script>
+    
+    window.onload = function() {
+      //var nekretnineContainer = document.getElementById('stan');
+      //PoziviAjax.impl_getNekretnine()
+      PoziviAjax.getNekretnine(function (error, data) {
+        if (error) {
+          console.error('Error fetching nekretnine:', error);
+        } else {
+          
+          /////////////////////////////////////////////////////////////////////////
+           //instanciranje modula
+          let nekretnine = SpisakNekretnina();
+          nekretnine.init(data, null);  //ne trebaju mi korisnici
+          const divStan = document.getElementById("stan");
+          const divKuca = document.getElementById("kuca");
+          const divPp = document.getElementById("pp");
+          spojiNekretnine(divStan, nekretnine, "Stan");
+          spojiNekretnine(divKuca, nekretnine, "Kuća");
+          spojiNekretnine(divPp, nekretnine, "Poslovni prostor");
+          /////////////////////////////////////////////////////////////////////////
+          /*for (let i = 0; i < data.length; i++) { //testiranje
+            let ime = document.createElement("p");
+            ime.textContent = data[i].naziv;
+            nekretninecont.appendChild(ime);
+          }*/
+        }
+      });
+    };
+  </script>
   </body>
 </html>
