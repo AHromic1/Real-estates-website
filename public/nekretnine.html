@@ -7,7 +7,7 @@
     <title>Nekretnine</title>
   </head>
   <body>
-    <object data="menu.html" class="meniPos"></object>
+    <object data="menu.html" class="meniPos" id="ucitaniMeni"></object>
     <div class="alignment">
 
     <div id="stan">
@@ -25,10 +25,59 @@
       <h2>Poslovni prostor</h2>
        
     </div>
+    <!--prijava odjava update-->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+    const meni = document.getElementById('ucitaniMeni');
+    
+    meni.onload = function () {
+      const meniSadrzaj = meni.contentDocument;
+    
+      if (meniSadrzaj) {
+        const prijava = meniSadrzaj.getElementById('login');
+        const odjava = meniSadrzaj.getElementById('logout');
+    
+        // Check login status in localStorage
+        const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
+          console.log(isLoggedIn);
+        // Call updateMenuContent with the login status
+        meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
+      }
+    }
+    });
+    
+    </script>
+    
+    <script>
+      let urlParams = new URLSearchParams(window.location.search);
+      let prijavljen = urlParams.get('prijavljen');
+      console.log(prijavljen);
+       document.addEventListener('DOMContentLoaded', function () {
+        const meni = document.getElementById('ucitaniMeni');
+        
+      meni.onload = function () {
+      let urlParams = new URLSearchParams(window.location.search);
+      let prijavljen = urlParams.get('prijavljen');
+      if(prijavljen){
+        const meniSadrzaj = meni.contentDocument;
+  
+        if (meniSadrzaj) {
+        const prijava = meniSadrzaj.getElementById('login');
+        const odjava = meniSadrzaj.getElementById('logout');
+        
+        meniSadrzaj.defaultView.updateMenuContent(true);
+        }
+  }
+      }});
+     </script>
+     
+
    <!-- <script src="../poziviAjax.js"></script> -->
    <script src="scripts/poziviAjax.js"></script>
    <script src="scripts/SpisakNekretnina.js"></script>
    <script src="scripts/nekretnine.js"></script>
+   
+
    <script>
     
     window.onload = function() {

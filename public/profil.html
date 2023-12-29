@@ -7,7 +7,7 @@
     <title>Profil</title>
   </head>
   <body> 
-    <object data="menu.html" class="meniPos"></object>
+    <object data="menu.html" class="meniPos" id="ucitaniMeni"></object>
 <!--FONTOVI I TO?Proizvoljno-->
     <!--DA LI JE FORM ILI? Receno je da jeste-->
     <div class="centerAlign">
@@ -27,5 +27,29 @@
         </div>
         </div>
         </div>
+
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+        const meni = document.getElementById('ucitaniMeni');
+        
+        meni.onload = function () {
+          const meniSadrzaj = meni.contentDocument;
+        
+          if (meniSadrzaj) {
+            const prijava = meniSadrzaj.getElementById('login');
+            const odjava = meniSadrzaj.getElementById('logout');
+        
+            // Check login status in localStorage
+            const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
+              console.log(isLoggedIn);
+            // Call updateMenuContent with the login status
+            meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
+          }
+        }
+        });
+        
+        </script>
+
   </body>
 </html>

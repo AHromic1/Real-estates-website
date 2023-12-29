@@ -9,13 +9,42 @@
   <body>
     <div id="meni">
     <ul>
-      <li><a href="/profil.html" target="_blank">Profil</a></li>
+      <li style="display: none;" id="profil"><a href="/profil.html" target="_blank">Profil</a></li>
       <li><a href="/nekretnine.html" target="_blank">Nekretnine</a></li>
       <li><a href="/detalji.html" target="_blank">Detalji</a></li>
-      <li id="loginLink" ><a href="/prijava.html" target="_blank">Prijava</a></li>
-      <li style="display: none;" id="logoutLink"><a href="/prijava.html" target="_blank">Odjava</a></li>
+      <li id="login" ><a href="/prijava.html" target="_blank">Prijava</a></li>
+      <li style="display: none;" id="logout"><a href="/prijava.html" target="_blank">Odjava</a></li>
     </ul>
     <!--PROVJERITI JE LI OK DA SE OTVORI U NOVOM TABU!!! Da, receno je da jeste-->
   </div>
+
+  
+<script>
+  
+  function updateMenuContent(isLoggedIn) {
+    prijavljen = true;
+    
+    const loginLink = document.getElementById('login');
+    const logoutLink = document.getElementById('logout');
+    const profilLink = document.getElementById('profil');
+
+    if (isLoggedIn) {
+      loginLink.style.display = 'none';
+      logoutLink.style.display = 'inline';
+      profilLink.style.display = 'inline';
+      localStorage.setItem('prijavljen', 'true');
+      console.log('istina');
+
+    } else {
+      loginLink.style.display = 'inline';
+      logoutLink.style.display = 'none';
+      profilLink.style.display = 'none';
+      localStorage.removeItem('prijavljen');
+    }
+  }
+
+  window.updateMenuContent = updateMenuContent;  //updateMenu je sada globalna funkcija
+</script>
+
   </body>
 </html>

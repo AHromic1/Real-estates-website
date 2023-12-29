@@ -7,7 +7,7 @@
     <title>Detalji</title>
   </head>
   <body>
-    <object data="menu.html" class="meniPos"></object>
+    <object data="menu.html" class="meniPos" id="ucitaniMeni3"></object>
     <div class="alignment">
     <h3 class="posSubheading1">OSNOVNO</h3>
     <div id="osnovno"> 
@@ -67,5 +67,26 @@
 
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+  const meni = document.getElementById('ucitaniMeni3');
+
+  meni.onload = function () {
+    const meniSadrzaj = meni.contentDocument;
+
+    if (meniSadrzaj) {
+      const prijava = meniSadrzaj.getElementById('login');
+      const odjava = meniSadrzaj.getElementById('logout');
+
+      // Check login status in localStorage
+      const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
+        console.log(isLoggedIn);
+      // Call updateMenuContent with the login status
+      meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
+    }
+  }
+});
+
+</script>
   </body>
 </html>
