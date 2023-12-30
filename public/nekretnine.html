@@ -47,7 +47,7 @@
     });
     
     </script>
-    
+ <!--   
     <script>
       let urlParams = new URLSearchParams(window.location.search);
       let prijavljen = urlParams.get('prijavljen');
@@ -70,7 +70,28 @@
   }
       }});
      </script>
-     
+    -->
+    
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+const meni = document.getElementById('ucitaniMeni');
+
+meni.onload = function () {
+  const meniSadrzaj = meni.contentDocument;
+
+  if (meniSadrzaj) {
+    const prijava = meniSadrzaj.getElementById('login');
+    const odjava = meniSadrzaj.getElementById('logout');
+
+    const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
+      console.log(isLoggedIn);
+
+    meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
+  }
+}
+});
+
+</script> 
 
    <!-- <script src="../poziviAjax.js"></script> -->
    <script src="scripts/poziviAjax.js"></script>

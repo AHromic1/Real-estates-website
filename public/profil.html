@@ -40,10 +40,9 @@
             const prijava = meniSadrzaj.getElementById('login');
             const odjava = meniSadrzaj.getElementById('logout');
         
-            // Check login status in localStorage
             const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
               console.log(isLoggedIn);
-            // Call updateMenuContent with the login status
+
             meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
           }
         }

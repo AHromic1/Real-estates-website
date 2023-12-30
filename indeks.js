@@ -2,7 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
-const fs = require("fs");
+//const fs = require("fs");
+const fs = require('fs').promises;  // Use fs.promises to get the promises version
+
+
 const app = express();
 
 app.use(express.static(__dirname+"/public"));
@@ -76,13 +79,23 @@ app.post('/login', async (req, res) => {
 
   try{
     let korisniciPut = path.join(__dirname, 'data', 'korisnici.json');
-  const korisniciJson = await fs.promises.readFile(korisniciPut, 'utf-8');
+  const korisniciJson = await fs.readFile(korisniciPut, 'utf-8');
     const korisnici = JSON.parse(korisniciJson);
-
+console.log(korisnici);
     const { username, password } = req.body;
-    const korisnik = korisnici.find((user) => user.username === username);
+    console.log("username");
+    console.log(username);
+    let korisnik;
+    for (x of korisnici){
+      if(x.username == username){
+        korisnik = x;
+        break;
+      }
+    }
+    //const korisnik = korisnici.find((user) => user.username === username);
     //const idKorisnika = null;
-  
+  console.log("korisnik");
+  console.log(korisnik);
   
   
 console.log("nesto");
@@ -117,9 +130,9 @@ catch(error){
   
 app.post('/logout', (req, res) => {
 
-  if (!req.session.uname) {  //uname je username 
+ /* if (!req.session.uname) {  //uname je username! ako neko nije prijavljen ne treba mi se ni odjavljivati
     return res.status(401).json({ greska: 'Neautorizovan pristup' });
-  }
+  }*/
 
 
    req.session.destroy((err) => {

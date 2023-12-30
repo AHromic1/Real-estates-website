@@ -18,17 +18,18 @@
     <!--PROVJERITI JE LI OK DA SE OTVORI U NOVOM TABU!!! Da, receno je da jeste-->
   </div>
 
-  
+  <!--Klik na prijavu-->
 <script>
   
   function updateMenuContent(isLoggedIn) {
-    prijavljen = true;
+    
     
     const loginLink = document.getElementById('login');
     const logoutLink = document.getElementById('logout');
     const profilLink = document.getElementById('profil');
 
     if (isLoggedIn) {
+      prijavljen = true;
       loginLink.style.display = 'none';
       logoutLink.style.display = 'inline';
       profilLink.style.display = 'inline';
@@ -36,6 +37,7 @@
       console.log('istina');
 
     } else {
+      console.log("odjavljenn");
       loginLink.style.display = 'inline';
       logoutLink.style.display = 'none';
       profilLink.style.display = 'none';
@@ -45,6 +47,32 @@
 
   window.updateMenuContent = updateMenuContent;  //updateMenu je sada globalna funkcija
 </script>
+<!--Klik na odjavu-->
+<script src="scripts/poziviAjax.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const logoutLink = document.getElementById('logout');
 
+    if (logoutLink) {
+      logoutLink.addEventListener('click', function (event) {
+       event.preventDefault(); 
+        PoziviAjax.postLogout(function(error, data){
+          if(error){
+            console.log("Doslo je do greske prilikom odjave.");
+          }
+          else{
+            console.log("Uspjesna odjava");
+            localStorage.removeItem('prijavljen'); //vise nije prijavljen
+        updateMenuContent(false);  //promijeniti sve u pocetno stanje
+          }
+        });
+       
+        console.log('Logout kliknut');
+        
+
+      });
+    }
+  });
+</script>
   </body>
 </html>

@@ -51,6 +51,7 @@
       if (meniSadrzaj) {
       const prijava = meniSadrzaj.getElementById('login');
       const odjava = meniSadrzaj.getElementById('logout');
+      const profil = meniSadrzaj.getElementById('prijava');
 
       const prijavaButton = document.getElementById('prijavaBttn');
       const usernameInput = document.getElementById('username');
@@ -58,11 +59,8 @@
       //mijenjanje login logout
         prijavaButton.addEventListener('click', function () {
           console.log("clidkedddd");
+         // localStorage.clear(); pr na piazzi
           const plainTextPassword = passwordInput.value;
-
-
-           
-
           console.log('Button clicked! Username:', usernameInput.value, 'Password:', plainTextPassword);
           //////////////////////////////////login///////////////////////////////////////////////////////
           
@@ -76,13 +74,14 @@
           //prijava.style.display = 'none';
         //odjava.style.display = 'inline';
         //const isLoggedIn = true;
-
-          // Call the updateMenuContent function in menu.html
-
           
+        const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
+      console.log(isLoggedIn);
+
+   // meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
           meniSadrzaj.defaultView.updateMenuContent(true);
 
-          console.log("Successful log in");
+          console.log("successful log in");
         }
       });
     
@@ -93,7 +92,7 @@
     });
   //}
   </script>
-
+<!--
 <script>
   document.addEventListener('DOMContentLoaded', function () {
 const meni = document.getElementById('ucitaniMeni');
@@ -105,15 +104,15 @@ meni.onload = function () {
     const prijava = meniSadrzaj.getElementById('login');
     const odjava = meniSadrzaj.getElementById('logout');
 
-    // Check login status in localStorage
+
     const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
       console.log(isLoggedIn);
-    // Call updateMenuContent with the login status
+
     meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
   }
 }
 });
 
-</script>
+</script>-->
 </body>
 </html>
