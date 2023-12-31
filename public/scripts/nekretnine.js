@@ -19,8 +19,30 @@
           let p3 = document.createElement("p");
           let noviRed = document.createElement("br");
           let divButton = document.createElement("div");
-          let detailsButton = document.createElement("input");
+          let detailsButton = document.createElement("button");
+          let klikovi = document.createElement("p");
+          let pretrage = document.createElement("p");
+          klikovi.setAttribute("id", `pretrage-${x.id}`); 
+          pretrage.setAttribute("id", `klikovi-${x.id}`);
+          detailsButton.setAttribute("id", `detalji-${x.id}`);
+
+          detailsButton.addEventListener('click', function () {
+            // ovdje event listener
+            let id = JSON.parse(this.getAttribute("data-id"));
+            console.log("Clicked Detalji for ID:", id);
         
+            MarketingAjax.marketingNekretnineId(id, function (error, data) {
+              if (error) {
+                //console.log("neuspjeh");
+              } else {
+               // console.log("uspjeh");
+              }
+            });
+          });
+
+          // pohranjivanje x.id u button (da bih mogla poslati id)
+          detailsButton.setAttribute("data-id", JSON.stringify(x.id));
+
           if(x.tip_nekretnine === "Stan"){
           divNekretnina.classList.add("stan");
           imgNekretnina.src = '../images/stan1.jpg';

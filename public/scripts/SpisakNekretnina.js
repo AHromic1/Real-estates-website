@@ -15,8 +15,10 @@ let SpisakNekretnina = function(){
     
 
     let filtrirajNekretnine =  function(kriterij){
+        console.log("this.listaaNekretnina", this.listaNekretnina);
         if(Object.entries(kriterij).length === 0) return this.listaNekretnina;  //ako nema kriterija sve nekretnine mogu
         //kriterij nije prazan, ali ne sadrzi odgovarajuca polja:
+        console.log("kriterij: ", kriterij);
         if(kriterij.tip_nekretnine === undefined && kriterij.min_kvadratura === undefined && 
             kriterij.max_kvadratura === undefined && kriterij.min_cijena === undefined &&
             kriterij.max_cijena === undefined) return this.listaNekretnina;  //vraca se originalna lista, nema validnih kriterija
@@ -27,7 +29,7 @@ let SpisakNekretnina = function(){
        // return listaNekretnina;
 
         if(kriterij.tip_nekretnine !== undefined){  //ako ima ovaj kriterij
-          console.log("uslov")
+          console.log("uslov1")
             for(let x of this.listaNekretnina){  //vrijednost! +  mora this
               console.log("usao u petlju");
               console.log(x);
@@ -39,6 +41,7 @@ let SpisakNekretnina = function(){
         }
 
        if(kriterij.min_kvadratura !== undefined){ 
+        console.log("uslov2");
             let iterativnaLista = [];
             if(rezultat.length !== 0){ //ako je vec nesto pohranjeno u rezultat
                 iterativnaLista = rezultat;
@@ -52,6 +55,7 @@ let SpisakNekretnina = function(){
         }
         
         if(kriterij.max_kvadratura !== undefined){  
+            console.log("uslov3");
             let iterativnaLista = [];
             if(rezultat.length !== 0){
                 iterativnaLista = rezultat;
@@ -69,6 +73,7 @@ let SpisakNekretnina = function(){
         }
 
         if(kriterij.min_cijena !== undefined){  
+            console.log("uslov4");
             let iterativnaLista = [];
             if(rezultat.length !== 0){
                 iterativnaLista = rezultat;
@@ -90,6 +95,7 @@ let SpisakNekretnina = function(){
         }
 
         if(kriterij.max_cijena !== undefined){  
+            console.log("uslov5");
             let iterativnaLista = [];
             if(rezultat.length !== 0){ 
                 iterativnaLista = rezultat;
@@ -108,10 +114,13 @@ let SpisakNekretnina = function(){
                 rezultat3 = [];
             }
             else iterativnaLista = this.listaNekretnina;
+            console.log("uslov5 iterativna lista");
+            console.log(iterativnaLista);
             for(let x of iterativnaLista){
                 if(x.cijena <= kriterij.max_cijena)
                 rezultat4.push(x);
             }
+            console.log("finalna iterativna listauslov5", rezultat4);
         }
 
         if(!isEmpty(rezultat) && isEmpty(rezultat1) && isEmpty(rezultat2) && isEmpty(rezultat3) && isEmpty(rezultat4)){
@@ -126,7 +135,8 @@ let SpisakNekretnina = function(){
         if(isEmpty(rezultat) && isEmpty(rezultat1) && isEmpty(rezultat2) && !isEmpty(rezultat3) && isEmpty(rezultat4)){
             return rezultat3;
         }
-
+        console.log("rezultat iz filtrirajNekretnine");
+        console.log(rezultat);
         return rezultat4;
     }
 

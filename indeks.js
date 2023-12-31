@@ -138,7 +138,7 @@ app.post('/logout', (req, res) => {
    req.session.destroy((err) => {
     if (err) {
       console.error('Error while destroying session:', err);
-      res.status(500).json({ greska: 'Server error' });
+      res.status(500).json({ greska: 'Neuspješna odjava' });
     } else {
       res.status(200).json({ poruka: 'Uspješno ste se odjavili' });
     }
@@ -246,7 +246,6 @@ app.put('/korisnik', async(req, res) =>{
       console.error(error);
       res.status(500).json({ greska: 'Internal Server Error' });
     });
-
 });
 
 
@@ -263,6 +262,108 @@ app.get('/nekretnine', async (req, res) => {
     console.error('Error reading nekretnine.json:', error);
     res.status(500).json({ greska: 'Internal Server Error' });
   }});
+
+
+  app.post('/marketing/nekretnine', async(req, res) => {
+  //  const { nizNekretninaIds } = req.body.;
+
+    try{
+      const {nizNekretninaIds} = req.body;
+     // const nizNekretninaIds = req.body.nizNekretninaIds;
+      const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
+      const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
+      let nekretnine = JSON.parse(nekretnineData);
+      console.log("+", nekretnine);
+      let rezultat = nekretnine;
+    
+      console.log( "-", nizNekretninaIds);
+      let postoji = 0;
+      let noviPodatak = {};
+      for(x of nizNekretninaIds){
+        let postoji = 0;
+        for(el of nekretnine){
+          console.log(el.pretrage);
+            if(x == el.id){
+              console.log("id", x);
+              console.log("idJson", el.id);
+              el.pretrage++;
+              postoji = 1;
+              console.log(el.pretrage);
+
+            }
+        }
+        if(postoji === 0){
+          console.log("x", x);
+          console.log("postoji", postoji);
+          nekretnine.push({id:x, pretrage: 1, klikovi: 0});
+          console.log("ovdje");
+          console.log("pushane nekretnine", nekretnine);
+        }
+       // postoji = 0;
+      }
+      console.log(nekretnine);
+     
+      await fs.writeFile(nekretninePath, JSON.stringify(nekretnine, null, 2), { encoding: 'utf-8' });
+      res.status(200).send();
+    }
+    catch(error){
+      res.status(500).send();
+    }
+  }
+  );
+
+  app.post('/marketing/nekretnine/:id', async(req, res) => {
+    //  const { nizNekretninaIds } = req.body.;
+  
+      try{
+        let x = JSON.parse(req.params.id);
+        console.log("x", x);
+        //const {nizNekretninaIds} = req.body;
+       // const nizNekretninaIds = req.body.nizNekretninaIds;
+        const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
+        const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
+        let nekretnine = JSON.parse(nekretnineData);
+        console.log("+", nekretnine);
+        //let rezultat = nekretnine;
+      
+       // console.log( "-", nizNekretninaIds);
+        
+      
+     
+          let postoji = 0;
+          for(el of nekretnine){
+            console.log(el.pretrage);
+              if(x == el.id){
+                console.log("id", x);
+                console.log("idJson", el.id);
+                el.klikovi++;
+                postoji = 1;
+                console.log(el.pretrage);
+                break;
+  
+              }
+          }
+          if(postoji === 0){
+            console.log("x", x);
+            console.log("postoji", postoji);
+            nekretnine.push({id:x, pretrage: 0, klikovi: 1});
+            console.log("ovdje");
+            console.log("pushane nekretnine", nekretnine);
+          }
+         // postoji = 0;
+        
+        console.log(nekretnine);
+       
+        await fs.writeFile(nekretninePath, JSON.stringify(nekretnine, null, 2), { encoding: 'utf-8' });
+        res.status(200).send();
+      }
+      catch(error){
+        res.status(500).send();
+      }
+    }
+    );
+
+  
 
 
 app.listen(3000, () => {
