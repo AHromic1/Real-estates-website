@@ -4,6 +4,7 @@
  //import { SpisakNekretnina } from "./SpisakNekretnina.js";  //trenutni folder
  /////
 
+
     function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
       // pozivanje metode za filtriranje
       let nekretnine = instancaModula.filtrirajNekretnine({ tip_nekretnine: tip_nekretnine });
@@ -21,10 +22,15 @@
           let divButton = document.createElement("div");
           let detailsButton = document.createElement("button");
           let klikovi = document.createElement("p");
+          klikovi.id = `klikovi-${x.id}`;
           let pretrage = document.createElement("p");
-          klikovi.setAttribute("id", `pretrage-${x.id}`); 
-          pretrage.setAttribute("id", `klikovi-${x.id}`);
+          pretrage.id = `pretrage-${x.id}`;
+          console.log("klikovi.id", klikovi.id);
+          //klikovi.setAttribute("id", `pretrage-${x.id}`); 
+          
+         // pretrage.setAttribute("id", `klikovi-${x.id}`);
           detailsButton.setAttribute("id", `detalji-${x.id}`);
+          
 
           detailsButton.addEventListener('click', function () {
             // ovdje event listener
@@ -79,6 +85,8 @@
           divSubdetails.appendChild(noviRed);
           divSubdetails.appendChild(p3);
           divSubdetails.appendChild(noviRed);
+          divSubdetails.appendChild(klikovi);
+          divSubdetails.appendChild(pretrage);
           detailsButton.value = 'Detalji';
           detailsButton.type = 'button';
           divButton.classList.add("centerAlign");
@@ -90,6 +98,22 @@
 
       }
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const divNekretnineRoditelj = document.getElementById("divNekretnine");
+    setInterval(() => {
+        MarketingAjax.osvjeziPretrage(divNekretnineRoditelj);
+    }, 500);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const divNekretnineRoditelj = document.getElementById("divNekretnine");
+  setInterval(() => {
+      MarketingAjax.osvjeziKlikove(divNekretnineRoditelj);
+  }, 500);
+});
+
+
   
   /*const divStan = document.getElementById("stan");
   const divKuca = document.getElementById("kuca");
@@ -104,9 +128,9 @@
   //spojiNekretnine(divKuca, nekretnine, "Kuća");
  // spojiNekretnine(divPp, nekretnine, "Poslovni prostor");
 
-  const kriterij = {
+ /* const kriterij = {
     min_cijena:"100000"
-};
+};*/
 
 
 //console.log("testiranje");

@@ -363,6 +363,64 @@ app.get('/nekretnine', async (req, res) => {
     }
     );
 
+    app.post('/marketing/osvjezi', async(req, res) => {
+      try{
+        console.log("uslo se u marketing/osvjezi");
+      const {nizNekretnina} = req.body;
+      console.log("niz nekretnina",nizNekretnina);
+      //let osvjezene = {};
+      let osvjezene = [];
+
+      const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
+      const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
+      let nekretnine = JSON.parse(nekretnineData);
+      console.log("nekretnine", nekretnine);
+      for(x of nizNekretnina){
+        for(el of nekretnine){
+        if(x === el.id){
+          osvjezene.push(el);
+        }
+
+        }
+      }
+      console.log("osvjezene iz servera", osvjezene);
+      res.status(200).send({nizNekretnina: osvjezene}); //{nizNekretnina: osvjezene}
+      }
+      catch(error){
+        res.status(500).send(error);
+      }
+    });
+
+   /* app.post('/marketing/osvjezi', async (req, res) => {
+      try {
+      
+          const { nizNekretnina } = req.body;
+          console.log("niz nekretnina", nizNekretnina);
+  
+          let osvjezene = [];
+          const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
+          const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');
+          let nekretnine = JSON.parse(nekretnineData);
+          console.log("nekretnine", nekretnine);
+  
+          for (x of nizNekretnina) {
+              for (el of nekretnine) {
+                  if (x === el.id) {
+                      osvjezene.push(el);
+                  }
+              }
+          }
+
+          console.log("osvjezene iz servera", osvjezene);
+  
+          res.status(200).send(osvjezene); 
+      } catch (error) {
+          console.error(error);
+          res.status(500).send();
+      }
+  });*/
+  
+
   
 
 
