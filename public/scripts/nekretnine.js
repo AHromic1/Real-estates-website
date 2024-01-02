@@ -36,7 +36,7 @@
           
 
           detailsButton.addEventListener('click', function () {
-            console.log("prosirena nekretnina", prosirenaNekretnina);
+            //console.log("prosirena nekretnina", prosirenaNekretnina);
             if (prosirenaNekretnina && prosirenaNekretnina !== divNekretnina) {
               prosirenaSlika.style.width = "300px";
               prosirenaNekretnina.style.width = "300px";
@@ -45,21 +45,22 @@
             divNekretnina.style.width = "500px";
             imgNekretnina.style.width = "500px";
             let id = JSON.parse(this.getAttribute("data-id"));
-            console.log("Clicked Detalji for ID:", id);
+            //console.log("Clicked Detalji for ID:", id);
         
-            MarketingAjax.marketingNekretnineId(id, function (error, data) {
+            /*MarketingAjax.marketingNekretnineId(id, function (error, data) {
               if (error) {
                 //console.log("neuspjeh");
               } else {
                // console.log("uspjeh");
               }
-            });
+            });*/
+            MarketingAjax.klikNekretnina(id);
             prosirenaNekretnina = divNekretnina;
             prosirenaSlika = imgNekretnina;
-            console.log("prosirena 2", prosirenaNekretnina);
+            //console.log("prosirena 2", prosirenaNekretnina);
           });
 
-          console.log("prosirena 3", prosirenaNekretnina);
+         // console.log("prosirena 3", prosirenaNekretnina);
           //divNekretnina.style.width = "300px";
           //imgNekretnina.style.width = "300px";
 

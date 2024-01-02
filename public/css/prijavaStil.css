@@ -78,3 +78,10 @@ body{
       margin-right: 10%;
     }
   }
+  .prijavaBttnStil{
+      display: block;
+      margin: 0 auto;
+      background-color: #728c69;
+      width: 100px;
+      height: 40px;
+  }

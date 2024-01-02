@@ -97,6 +97,8 @@ console.log(korisnici);
   console.log("korisnik");
   console.log(korisnik);
   
+  //req.session.uname = korisnik;
+  console.log("LOGIN RUTA UNAME", req.session.uname);
   
 console.log("nesto");
   if (!korisnik) {
@@ -149,6 +151,7 @@ app.post('/logout', (req, res) => {
 
 app.get('/korisnik', async (req,res)=>{
    var korisnik =  req.session.uname;
+   console.log("korisnik", korisnik);
    if(!korisnik){
     console.log("neautorizovan pristup");
     return res.status(401).json({ greska: 'Neautorizovan pristup'});
@@ -268,7 +271,9 @@ app.get('/nekretnine', async (req, res) => {
   //  const { nizNekretninaIds } = req.body.;
 
     try{
+      req.session.nizPretragaIds = null; //restart na pocetku svakog filtriranja
       const {nizNekretninaIds} = req.body;
+      req.session.nizPretragaIds = nizNekretninaIds;
      // const nizNekretninaIds = req.body.nizNekretninaIds;
       const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
       const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
@@ -316,6 +321,9 @@ app.get('/nekretnine', async (req, res) => {
     //  const { nizNekretninaIds } = req.body.;
   
       try{
+        req.session.nizKlikovaIds = null; //restart na pocetku svakog filtriranja
+      //const {nizNekretninaIds} = req.body;
+      req.session.nizKlikovaIds = req.body;
         let x = JSON.parse(req.params.id);
         console.log("x", x);
         //const {nizNekretninaIds} = req.body;
@@ -367,13 +375,23 @@ app.get('/nekretnine', async (req, res) => {
       try{
         console.log("uslo se u marketing/osvjezi");
       const {nizNekretnina} = req.body;
+      if(Object.keys(req.body).length > 0){  //ako tijelo nije prazno
+        req.session.nizNekretninaS = req.body;  //pohranim podatke u sesiju
+      }
+      else{  //ako tijelo jeste prazno, uzimam podatke pohranjene ranije u sesiji
+        //ako se pohranjivanje nije nikad desilo, onda se nista nece ni desiti, kako treba i biti po postavci zadatka
+        nizNekretnina = req.session.nizNekretninaS;
+
+      }
       console.log("niz nekretnina",nizNekretnina);
+      //req.session.nizNekretnina = nizNekretnina;
       //let osvjezene = {};
       let osvjezene = [];
-
+      
       const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
       const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
       let nekretnine = JSON.parse(nekretnineData);
+      
       console.log("nekretnine", nekretnine);
       for(x of nizNekretnina){
         for(el of nekretnine){
