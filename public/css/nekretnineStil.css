@@ -19,14 +19,17 @@
     }
     .leftAlign{
       float: left;
-      margin-left: 5px;
+      margin-left: 20px;
     }
     .rigthAlign{
       float: right;
       margin-left: 30px;
     }
     .detailsButton{ /*smijem li margine dodati? Da*/
-      padding-bottom: 2%;
+      padding-bottom: 5%;
+      padding-top: 5%;
+      padding-left: 10%;
+      padding-right: 10%;
     }
     .pictures{
         width: 300px; 
@@ -61,8 +64,17 @@
         height: 70px;
     }
     .stanPos{
-        margin-top: 7%;
+        margin-top: 2%;
     }
     .filtriranje{
-        margin-top: 5%;
+        margin-top: 8%;
+        margin-left: 8%;
     }
+    .klikoviPos{
+        margin-left: 20px;
+    }
+    .filtrirajBttn{
+    margin-left: 45%;
+    margin-top: 2%; 
+    }
+    

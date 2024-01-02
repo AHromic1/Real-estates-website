@@ -4,10 +4,11 @@ const MarketingAjax = (() => {
     let noviKlik;
 
     const divNekretnineRoditelj = document.getElementById("divNekretnine");
-   osvjezi = setInterval(() => {
+  /* osvjezi = setInterval(() => {
         MarketingAjax.osvjeziKlikove(divNekretnineRoditelj);
+        MarketingAjax.osvjeziPretrage(divNekretnineRoditelj);
     }, 500);
-    
+    */
  function kontaktirajServer(method, url, data, fnCallback) {
     console.log("funkcija je pozvana");
      const headers = {
@@ -115,7 +116,7 @@ const MarketingAjax = (() => {
         }
         nizNekretnina = ids;
         console.log("ids", nizNekretnina);
-        if(noviKlik){
+        //if(noviKlik){
         kontaktirajServer('POST', '/marketing/osvjezi', {nizNekretnina}, function(error, data){
             if(data){
             console.log("Response:", data);
@@ -142,15 +143,18 @@ const MarketingAjax = (() => {
             console.log("error");
         }*/
         });
-    }
-    noviKlik = false;
+   // }
+   // noviKlik = false;
      }
 
     function novoFiltriranje(listaFiltriranihNekretnina){
-        kontaktirajServer('POST', '/marketing/nekretnine', listaFiltriranihNekretnina, function(error, data){
+    const idsPrikazanih = listaFiltriranihNekretnina.map(property => property.id);
+      console.log("idevi", idsPrikazanih);
+      const podaci = {nizNekretninaIds: idsPrikazanih};
+        kontaktirajServer('POST', '/marketing/nekretnine', podaci, function(error, data){
             if(data){
-                    console.log("Pregledi uspjesno azurirani");
-                    noviFilter = true;
+                console.log("Pregledi uspjesno azurirani");
+                noviFilter = true;
             }
             else{
                 console.log("Error");
