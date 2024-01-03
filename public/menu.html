@@ -42,7 +42,8 @@
       loginLink.style.display = 'inline';
       logoutLink.style.display = 'none';
       profilLink.style.display = 'none';
-      localStorage.removeItem('prijavljen');
+      localStorage.setItem('prijavljen', 'false');
+      //localStorage.removeItem('prijavljen');
       window.open('../prijava.html');
     }
   }
@@ -64,7 +65,8 @@
           }
           else{
             console.log("Uspjesna odjava");
-            localStorage.removeItem('prijavljen'); //vise nije prijavljen
+            localStorage.setItem('prijavljen', 'false');
+           // localStorage.removeItem('prijavljen'); //vise nije prijavljen
         updateMenuContent(false);  //promijeniti sve u pocetno stanje
           }
         });

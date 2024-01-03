@@ -33,9 +33,9 @@
       </div>
     </div>
   </div>
-  <button id="prijavaBttn" class="prijavaBttnStil">Prijava</button>
+  <button id="prijavaBttn" class="prijavaBttnStil" type="button">Prijava</button>
 
-  <script src="scripts/poziviAjax.js"></script>
+  <script src="scripts/PoziviAjax.js"></script>
 
   <script>
     // window.onload = function() {
@@ -63,15 +63,9 @@
           
           PoziviAjax.postLogin(usernameInput.value, plainTextPassword, function (error, data) {
            // console.log("desilo se ovo");
-        if (error) {
+        if (error===null && data && data.poruka=='Uspješna prijava') {
           //prijava.style.display = 'inline';
         //odjava.style.display = 'none';
-          console.error('Error while logging in:', error);
-        } else {
-          //prijava.style.display = 'none';
-        //odjava.style.display = 'inline';
-        //const isLoggedIn = true;
-          
         const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
       console.log(isLoggedIn);
 
@@ -79,6 +73,12 @@
           meniSadrzaj.defaultView.updateMenuContent(true);
 
           console.log("successful log in");
+        } else {
+          //prijava.style.display = 'none';
+        //odjava.style.display = 'inline';
+        //const isLoggedIn = true;
+        console.error('Error while logging in:', error);
+       
         }
       });
     

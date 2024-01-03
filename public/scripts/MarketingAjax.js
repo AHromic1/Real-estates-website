@@ -75,9 +75,11 @@ const MarketingAjax = (() => {
             ids.push(id);
         }
         novaPretraga = false; //restart
-    }
+    
         nizNekretnina = ids;
         console.log("ids", nizNekretnina);
+
+
         kontaktirajServer('POST', '/marketing/osvjezi', {nizNekretnina}, function(error, data){
             if(data){
             console.log("Response:", data);
@@ -104,6 +106,35 @@ const MarketingAjax = (() => {
             console.log("error");
         }*/
         });
+    }
+    else{
+        kontaktirajServer('POST', '/marketing/osvjezi', null, function(error, data){
+            if(data){
+            console.log("Response:", data);
+            const osvjezeneNekretnine = data.nizNekretnina;//response.nizNekretnina;
+            console.log("osvjezene", osvjezeneNekretnine);
+            const idNekretnine = null;
+            //let element;
+            for(x of osvjezeneNekretnine){
+                console.log("uslo se u petlju nakon poziva servisa");
+                let idNekretnine = x.id;
+                console.log("idNekretnine", idNekretnine);
+                let divSNekretninama = document.getElementById("divNekretnine");
+                console.log("url", `pretrage-${x.id}`);
+                const idElement = `pretrage-${x.id}`;
+                let element = divNekretnine.querySelector(`#${idElement}`);
+               
+                //if(element){
+                    console.log("ovdje");
+                    element.innerText = `Pretrage: ${x.pretrage}`;
+                //}
+            }
+        }
+        /*else{
+            console.log("error");
+        }*/
+        });
+    }
         }
      
      function osvjeziKlikove(divNekretnine){
@@ -128,7 +159,7 @@ const MarketingAjax = (() => {
             ids.push(id);
         }
         noviKlik = false;
-    }
+    
         nizNekretnina = ids;
         console.log("ids", nizNekretnina);
         //if(noviKlik){
@@ -158,6 +189,35 @@ const MarketingAjax = (() => {
             console.log("error");
         }*/
         });
+    }
+    else{
+        kontaktirajServer('POST', '/marketing/osvjezi', null, function(error, data){
+            if(data){
+            console.log("Response:", data);
+            const osvjezeneNekretnine = data.nizNekretnina;//response.nizNekretnina;
+            console.log("osvjezene", osvjezeneNekretnine);
+            const idNekretnine = null;
+            //let element;
+            for(x of osvjezeneNekretnine){
+                console.log("uslo se u petlju nakon poziva servisa");
+                let idNekretnine = x.id;
+                console.log("idNekretnine", idNekretnine);
+                let divSNekretninama = document.getElementById("divNekretnine");
+                console.log("url", `klikovi-${x.id}`);
+                const idElement = `klikovi-${x.id}`;
+                let element = divNekretnine.querySelector(`#${idElement}`);
+               console.log("element", element);
+                //if(element){
+                    console.log("ovdje");
+                    element.innerText = `Klikovi: ${x.klikovi}`;
+                //}
+            }
+        }
+        /*else{
+            console.log("error");
+        }*/
+        });
+    }
    // }
    // noviKlik = false;
      }
@@ -171,6 +231,7 @@ const MarketingAjax = (() => {
                 console.log("Pregledi uspjesno azurirani");
                 novaPretraga = true;
                 //osvjeziPretrage(divNekretnineRoditelj);
+                //osvjeziKlikove(divNekretnineRoditelj);
             }
             else{
                 console.log("Error");

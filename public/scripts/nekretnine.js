@@ -252,13 +252,13 @@ document.addEventListener('DOMContentLoaded', function () {
       divPp = document.getElementById("pp");
 
       spojiNekretnine(divStan, nekretnine2, "Stan");
-      setTimeout(function (){
+      //setTimeout(function (){
         spojiNekretnine(divKuca, nekretnine2, "Kuća");
-      }, 500);
+      //}, 500);
 
-      setTimeout(function (){
+      //setTimeout(function (){
         spojiNekretnine(divPp, nekretnine2, "Poslovni prostor");
-      }, 800);
+      //}, 1000);
       
       
 
@@ -280,4 +280,6 @@ document.addEventListener('DOMContentLoaded', function () {
     filtriraj();
   });
 };
+
+
  ///////////////////////////////////

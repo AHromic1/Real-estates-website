@@ -67,9 +67,17 @@ app.get('/prijava.html', (req, res) => {
 });
 
   app.get('/profil.html', (req, res) => {
+    const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
+    console.log("loggedIn", isLoggedIn);
+   if(!isLoggedIn){
+    console.log("loggedIn", isLoggedIn);
+    return res.status(404).json({greska: 'Neautorizovan pristup'});}
+   else{
     console.log("otvorena stranica");
-    serveHtml('profil.html', res);
+    //serveHtml('profil.html', res);
+    return res.sendFile(path.join(__dirname, 'public/html','profil.html'));
     console.log("otvorena stranica");
+   }
   });
 
   
@@ -81,7 +89,7 @@ app.post('/login', async (req, res) => {
     let korisniciPut = path.join(__dirname, 'data', 'korisnici.json');
   const korisniciJson = await fs.readFile(korisniciPut, 'utf-8');
     const korisnici = JSON.parse(korisniciJson);
-console.log(korisnici);
+console.log("korisnici", korisnici);
     const { username, password } = req.body;
     console.log("username");
     console.log(username);
@@ -114,6 +122,7 @@ console.log("nesto");
       console.log("password okej");
 
       req.session.uname = username;
+      req.session.uspjesnaPrijava = true;
       return res.status(200).json({ poruka: 'Uspješna prijava' });
     } else {
       console.log("password nije okej");
@@ -415,22 +424,24 @@ app.get('/nekretnine', async (req, res) => {
 
     app.post('/marketing/osvjezi', async(req, res) => {
       try {
-          console.log("uslo se u marketing/osvjezi");
+          //console.log("uslo se u marketing/osvjezi");
           let { nizNekretnina } = req.body;
-          console.log("U INDEKSU");
-          console.log("req body", req.body);
+          //console.log("U INDEKSU");
+          //console.log("req body", req.body);
   
-          if (nizNekretnina.length > 0) {
+          if (Object.keys(req.body).length !== 0) {
               req.session.nizNekretninaS = req.body;
-              console.log("TIJELO NIJE PRAZNO");
+              //console.log("TIJELO NIJE PRAZNO");
           } else {
-              console.log("tijelo je prazno", req.session.nizNekretninaS);
+             // console.log("tijelo je prazno", req.session.nizNekretninaS);
               if(req.session.nizNekretninaS)
               nizNekretnina = req.session.nizNekretninaS.nizNekretnina;
-              console.log("PODACI IZ SESIJE", nizNekretnina);
+              //console.log("PODACI IZ SESIJE", nizNekretnina);
           }
-  
-          console.log("niz nekretnina", nizNekretnina);
+          
+          
+        
+          //console.log("niz nekretnina", nizNekretnina);
           //req.session.nizNekretnina = nizNekretnina;
           //let osvjezene = {};
           let osvjezene = [];
@@ -439,7 +450,9 @@ app.get('/nekretnine', async (req, res) => {
           const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
           let nekretnine = JSON.parse(nekretnineData);
   
-          console.log("nekretnine", nekretnine);
+          if (!Array.isArray(nizNekretnina)) {
+            return;
+        }
           for (x of nizNekretnina) {
               for (el of nekretnine) {
                   if (x === el.id) {
@@ -448,7 +461,7 @@ app.get('/nekretnine', async (req, res) => {
               }
           }
   
-          console.log("osvjezene iz servera", osvjezene);
+         
           res.status(200).send({ nizNekretnina: osvjezene }); //{nizNekretnina: osvjezene}
       } catch (error) {
           console.error("Error in /marketing/osvjezi:", error);
