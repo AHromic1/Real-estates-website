@@ -1,9 +1,12 @@
 const MarketingAjax = (() => {
 
-    let noviFilter;
-    let noviKlik;
+    let novaPretraga = false;
+    let noviKlik = false;
+    let brojacUcitavanja = 0;
+    let brojacKlikova = 0;
 
     const divNekretnineRoditelj = document.getElementById("divNekretnine");
+    
   osvjezi = setInterval(() => {
         MarketingAjax.osvjeziKlikove(divNekretnineRoditelj);
     }, 500);
@@ -49,6 +52,8 @@ const MarketingAjax = (() => {
      }*/
 
      function osvjeziPretrage(divNekretnine){
+        brojacUcitavanja++;
+        console.log("UCITAVANJA", brojacUcitavanja);
         console.log("funkcija osvjezi Pretrage je pozvana");
         let divsDugmicima = document.getElementById("divNekretnine");
         let dugmici = divsDugmicima.getElementsByTagName("button");
@@ -56,8 +61,10 @@ const MarketingAjax = (() => {
         console.log("dugmici", dugmiciNiz);
         let ids = [];
         console.log("duzina", dugmiciNiz.length);
+        console.log("NOVA PRETRHA", novaPretraga);
+        if(brojacUcitavanja === 1 || novaPretraga === true){ //samo prvi put uzimam iz html-a id-eve - i kada dodje do promjene, tj do filtriranja
         for (var i = 0; i < dugmiciNiz.length; i++) {
-            console.log("usao u petlju");
+            console.log("PRVI PUT NAKON NEKOG REFRESHA");
             var dugme = dugmiciNiz[i];
             var dugmeId = dugme.id;
             //sklanjam tekstualni dio
@@ -67,6 +74,8 @@ const MarketingAjax = (() => {
             console.log("id", id);
             ids.push(id);
         }
+        novaPretraga = false; //restart
+    }
         nizNekretnina = ids;
         console.log("ids", nizNekretnina);
         kontaktirajServer('POST', '/marketing/osvjezi', {nizNekretnina}, function(error, data){
@@ -98,6 +107,7 @@ const MarketingAjax = (() => {
         }
      
      function osvjeziKlikove(divNekretnine){
+        brojacKlikova++;
         console.log("funkcija osvjezi Klikove je pozvana");
         let divsDugmicima = document.getElementById("divNekretnine");
         let dugmici = divsDugmicima.getElementsByTagName("button");
@@ -105,6 +115,7 @@ const MarketingAjax = (() => {
         console.log("dugmici", dugmiciNiz);
         let ids = [];
         console.log("duzina", dugmiciNiz.length);
+        if(brojacKlikova === 1 || noviKlik === true){
         for (var i = 0; i < dugmiciNiz.length; i++) {
             console.log("usao u petlju");
             var dugme = dugmiciNiz[i];
@@ -116,6 +127,8 @@ const MarketingAjax = (() => {
             console.log("id", id);
             ids.push(id);
         }
+        noviKlik = false;
+    }
         nizNekretnina = ids;
         console.log("ids", nizNekretnina);
         //if(noviKlik){
@@ -153,10 +166,11 @@ const MarketingAjax = (() => {
     const idsPrikazanih = listaFiltriranihNekretnina.map(property => property.id);
       console.log("idevi", idsPrikazanih);
       const podaci = {nizNekretninaIds: idsPrikazanih};
-        kontaktirajServer('POST', '/marketing/nekretnine', podaci, function(error, data){
+        kontaktirajServer('POST', '/marketing/nekretnine', podaci, function(data, error){
             if(data){
                 console.log("Pregledi uspjesno azurirani");
-                noviFilter = true;
+                novaPretraga = true;
+                //osvjeziPretrage(divNekretnineRoditelj);
             }
             else{
                 console.log("Error");
