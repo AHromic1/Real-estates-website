@@ -425,6 +425,7 @@ app.get('/nekretnine', async (req, res) => {
               console.log("TIJELO NIJE PRAZNO");
           } else {
               console.log("tijelo je prazno", req.session.nizNekretninaS);
+              if(req.session.nizNekretninaS)
               nizNekretnina = req.session.nizNekretninaS.nizNekretnina;
               console.log("PODACI IZ SESIJE", nizNekretnina);
           }

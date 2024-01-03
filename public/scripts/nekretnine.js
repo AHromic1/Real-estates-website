@@ -34,16 +34,21 @@
          // pretrage.setAttribute("id", `klikovi-${x.id}`);
           detailsButton.setAttribute("id", `detalji-${x.id}`);
           
-
+          let prosireniDetalji;
           detailsButton.addEventListener('click', function () {
             //console.log("prosirena nekretnina", prosirenaNekretnina);
             if (prosirenaNekretnina && prosirenaNekretnina !== divNekretnina) {
               prosirenaSlika.style.width = "300px";
               prosirenaNekretnina.style.width = "300px";
+              prosirenaNekretnina.style.gridColumn = "span 1";
+              //prosireniDetalji.style.columnGap="20px";
           }
             // ovdje event listener
             divNekretnina.style.width = "500px";
             imgNekretnina.style.width = "500px";
+            divNekretnina.style.gridColumn = "span 2";
+            //divDetails.style.columnGap = "220px";
+            //divNekretnina.style.marginRight = "200px"
             let id = JSON.parse(this.getAttribute("data-id"));
             //console.log("Clicked Detalji for ID:", id);
         
@@ -57,7 +62,8 @@
             MarketingAjax.klikNekretnina(id);
             prosirenaNekretnina = divNekretnina;
             prosirenaSlika = imgNekretnina;
-            //console.log("prosirena 2", prosirenaNekretnina);
+           // prosireniDetalji = divDetails;
+            //console.log("prosirena 2", prosireniDetalji);
           });
 
          // console.log("prosirena 3", prosirenaNekretnina);
@@ -246,8 +252,15 @@ document.addEventListener('DOMContentLoaded', function () {
       divPp = document.getElementById("pp");
 
       spojiNekretnine(divStan, nekretnine2, "Stan");
-      spojiNekretnine(divKuca, nekretnine2, "Kuća");
-      spojiNekretnine(divPp, nekretnine2, "Poslovni prostor");
+      setTimeout(function (){
+        spojiNekretnine(divKuca, nekretnine2, "Kuća");
+      }, 500);
+
+      setTimeout(function (){
+        spojiNekretnine(divPp, nekretnine2, "Poslovni prostor");
+      }, 800);
+      
+      
 
      /* const idsPrikazanih = filtrirane.map(property => property.id);
       console.log("idevi", idsPrikazanih);*/

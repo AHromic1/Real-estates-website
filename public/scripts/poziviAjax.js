@@ -45,7 +45,7 @@ function kontaktirajServer(method, url, data, fnCallback) {
         .catch(error => fnCallback(error, null));
 }
 
-//testirati ove 3!
+//testirati ove 3! - rute su testirane kroz postman, sve rade onako kako je ocekivano ( : 
 
     function impl_getKorisnik(fnCallback) {
         kontaktirajServer('GET', '/korisnik', null, fnCallback);

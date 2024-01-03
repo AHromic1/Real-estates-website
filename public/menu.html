@@ -35,6 +35,7 @@
       profilLink.style.display = 'inline';
       localStorage.setItem('prijavljen', 'true');
       console.log('istina');
+      window.open('../nekretnine.html');
 
     } else {
       console.log("odjavljenn");
@@ -42,6 +43,7 @@
       logoutLink.style.display = 'none';
       profilLink.style.display = 'none';
       localStorage.removeItem('prijavljen');
+      window.open('../prijava.html');
     }
   }
 
