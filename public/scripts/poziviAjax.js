@@ -1,30 +1,5 @@
 const PoziviAjax = (() => {
-   /* let ajax = new XMLHttpRequest();
-
-    function kontaktirajServer(method, url, data, fnCallback) {
-        ajax.open(method, `http://localhost:3000${url}`, true);  //paziti na navodnike¸! "template literals"
-     if(data)
-     ajax.setRequestHeader('Content-Type', 'application/json');
-        ajax.onreadystatechange = function () {
-            if (ajax.readyState === 4) {
-                let error = null;
-                let responseData = null;
-                if (ajax.status !== 200) {
-                    error = `Error: ${ajax.status} - ${ajax.statusText}`;
-                } else {
-                    responseData = JSON.parse(ajax.responseText);
-                }
-                fnCallback(error, responseData);
-            }
-        };
-        console.log(`Sending request to: http://localhost:3000${url}`);
-
-        if(data)
-       ajax.send(JSON.stringify(data));  //data ? JSON.stringify(data) : null
-        else
-      ajax.send();
-    }
-*/
+ 
 function kontaktirajServer(method, url, data, fnCallback) {
     const headers = {
         'Content-Type': 'application/json',

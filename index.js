@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 //const fs = require("fs");
-const fs = require('fs').promises;  // Use fs.promises to get the promises version
+const fs = require('fs').promises;  
 
 
 const app = express();
@@ -20,11 +20,6 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-
-
-
-//app.use(express.json()); // Parse JSON bodies
-//app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 
 
@@ -68,20 +63,22 @@ app.get('/prijava.html', (req, res) => {
 
   app.get('/profil.html', (req, res) => {
     const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
-    console.log("loggedIn", isLoggedIn);
+   
    if(!isLoggedIn){
-    console.log("loggedIn", isLoggedIn);
     return res.status(404).json({greska: 'Neautorizovan pristup'});}
    else{
-    console.log("otvorena stranica");
-    //serveHtml('profil.html', res);
-    return res.sendFile(path.join(__dirname, 'public/html','profil.html'));
-    console.log("otvorena stranica");
+    serveHtml('profil.html', res);
    }
   });
 
+  ////////////////
+
+  
+  //////////////////////
+
   
   ////treba ubaciti hashirane lozinke u korisnike!
+  //potrebno je 2 puta kliknuti na prijava ukoliko lozinka nije hashirana
 app.post('/login', async (req, res) => {
  // const { username, password } = req.body;
 
@@ -115,7 +112,20 @@ console.log("nesto");
     return res.status(401).json({ greska: 'Neuspješna prijava' });
   }
   
+//////
+  const isHashed = /^\$2[ayb]\$[0-9]{2}\$[A-Za-z0-9./]{53}$/.test(korisnik.password);
 
+  if (!isHashed) {
+    bcrypt.hash(korisnik.password, 10, async (error, hash) => {
+      if (error) {
+        console.error('greska u hashiranju:', error);
+        return res.status(500).json({ greska: 'greska' });
+      } else {
+        korisnik.password = hash;
+        await fs.writeFile(korisniciPut, JSON.stringify(korisnici, null, 2), { encoding: 'utf-8' });
+      }
+    });
+  }
   
   bcrypt.compare(password, korisnik.password, (err, result) => {
     if (result) {
@@ -130,8 +140,8 @@ console.log("nesto");
       return res.status(401).json({ greska: 'Neuspješna prijava' });
     }
   });
-}
 
+  }
 catch(error){
   console.error('Error:', error);
   res.status(500).json({ greska: 'parsiranje pogresno'});
@@ -183,9 +193,9 @@ app.get('/korisnik', async (req,res)=>{
       prezime: korisniciPodaci[trazeniId].prezime,
       username: korisniciPodaci[trazeniId].username,
       password: korisniciPodaci[trazeniId].password
-      //,slika: uname.url    kako???? 
+
     };
-    //mozw i .user
+
     return res.status(200).json(detalji);
    }
 });
@@ -242,7 +252,7 @@ console.log("idKorisnika", idKorisnika);
   nekretnine[id_nekretnine - 1].upiti.push({ id_korisnika: idKorisnika, tekst_upita:tekst_upita });
 //opet -1, zbog postavke spirale
 
-  fs.writeFile(nekretninePath, JSON.stringify(nekretnine, null, 2))  //2 je za razmak, ljepse
+ await fs.writeFile(nekretninePath, JSON.stringify(nekretnine, null, 2))  //2 je za razmak, ljepse
     .then(() => {
       res.status(200).json({ poruka: 'Upit je uspješno dodan' });
     })
@@ -293,12 +303,7 @@ app.put('/korisnik', async(req, res) =>{
     }
     console.log(korisnici);
     await fs.writeFile(nekretninePath, JSON.stringify(korisnici, null, 2), { encoding: 'utf-8' });
-    /*.then(()=>{
-      res.status(200).json({ poruka: 'Uspješna akcija' });
-    }) .catch((error) => {
-      console.error(error);
-      res.status(500).json({ greska: 'Greska' });
-    });*/
+   
 });
 
 
@@ -468,81 +473,7 @@ app.get('/nekretnine', async (req, res) => {
           res.status(500).send(error);
       }
   });
-   /* app.post('/marketing/osvjezi', async(req, res) => {
-      try{
-      console.log("uslo se u marketing/osvjezi");
-      const {nizNekretnina} = req.body;
-      console.log("U INDEKSU");
-      console.log("req body", req.body);
-     
-      if(nizNekretnina.length > 0){  //ako tijelo nije prazno
-        req.session.nizNekretninaS = req.body;  //pohranim podatke u sesiju
-        console.log("TIJELO NIJE PRAZNO");
-      }
-      else{  //ako tijelo jeste prazno, uzimam podatke pohranjene ranije u sesiji
-        //ako se pohranjivanje nije nikad desilo, onda se nista nece ni desiti, kako treba i biti po postavci zadatka
-        console.log("tijelo je prazno", req.session.nizNekretninaS);
-        nizNekretnina = req.session.nizNekretninaS;
-        console.log("PODACI IZ SESIJE", nizNekretnina);
-
-      }
-      console.log("niz nekretnina",nizNekretnina);
-      //req.session.nizNekretnina = nizNekretnina;
-      //let osvjezene = {};
-      let osvjezene = [];
-      
-      const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
-      const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
-      let nekretnine = JSON.parse(nekretnineData);
-      
-      console.log("nekretnine", nekretnine);
-      for(x of nizNekretnina){
-        for(el of nekretnine){
-        if(x === el.id){
-          osvjezene.push(el);
-        }
-
-        }
-      }
-      console.log("osvjezene iz servera", osvjezene);
-      res.status(200).send({nizNekretnina: osvjezene}); //{nizNekretnina: osvjezene}
-      }
-      catch(error){
-        res.status(500).send(error);
-      }
-    });
-*/
-   /* app.post('/marketing/osvjezi', async (req, res) => {
-      try {
-      
-          const { nizNekretnina } = req.body;
-          console.log("niz nekretnina", nizNekretnina);
-  
-          let osvjezene = [];
-          const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
-          const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');
-          let nekretnine = JSON.parse(nekretnineData);
-          console.log("nekretnine", nekretnine);
-  
-          for (x of nizNekretnina) {
-              for (el of nekretnine) {
-                  if (x === el.id) {
-                      osvjezene.push(el);
-                  }
-              }
-          }
-
-          console.log("osvjezene iz servera", osvjezene);
-  
-          res.status(200).send(osvjezene); 
-      } catch (error) {
-          console.error(error);
-          res.status(500).send();
-      }
-  });*/
-  
-
-  
+   
 
 
 app.listen(3000, () => {

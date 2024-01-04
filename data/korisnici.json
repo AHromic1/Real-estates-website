@@ -11,13 +11,13 @@
     "ime": "Amina",
     "prezime": "Hromic",
     "username": "ahromic1",
-    "password": "amina12"
+    "password": "$2b$10$BaqQTfu2w/ozUsaOBNtRa.Bk7tGABlpQkzomeLy2tFikjx8Qy2LN6"
   },
   {
     "id": 3,
     "ime": "Neko2",
     "prezime": "Nekic3",
     "username": "username3",
-    "password": "hashPassworda2"
+    "password": "$2b$10$Yy/.A9zKwYth66pbq8S4UOpZjLE08.04rewbzUTgjBvhHBj1ep8ey"
   }
 ]

@@ -7,7 +7,6 @@
  let prosirenaSlika = null;
 
     function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
-   //   let prosirenaNekretnina = null;
       // pozivanje metode za filtriranje
       let nekretnine = instancaModula.filtrirajNekretnine({ tip_nekretnine: tip_nekretnine });
       // iscrtavanje elemenata u divReferenca element
@@ -52,23 +51,13 @@
             let id = JSON.parse(this.getAttribute("data-id"));
             //console.log("Clicked Detalji for ID:", id);
         
-            /*MarketingAjax.marketingNekretnineId(id, function (error, data) {
-              if (error) {
-                //console.log("neuspjeh");
-              } else {
-               // console.log("uspjeh");
-              }
-            });*/
+  
             MarketingAjax.klikNekretnina(id);
             prosirenaNekretnina = divNekretnina;
             prosirenaSlika = imgNekretnina;
            // prosireniDetalji = divDetails;
             //console.log("prosirena 2", prosireniDetalji);
           });
-
-         // console.log("prosirena 3", prosirenaNekretnina);
-          //divNekretnina.style.width = "300px";
-          //imgNekretnina.style.width = "300px";
 
           // pohranjivanje x.id u button (da bih mogla poslati id)
           detailsButton.setAttribute("data-id", JSON.stringify(x.id));
@@ -124,21 +113,7 @@
       }
   }
 
- /* document.addEventListener('DOMContentLoaded', function () {
-    const divNekretnineRoditelj = document.getElementById("divNekretnine");
-    setInterval(() => {
-        MarketingAjax.osvjeziPretrage(divNekretnineRoditelj);
-    }, 500);
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  const divNekretnineRoditelj = document.getElementById("divNekretnine");
-  setInterval(() => {
-      MarketingAjax.osvjeziKlikove(divNekretnineRoditelj);
-  }, 500);
-});
-
-*/
+ 
   
  //prijava update
  document.addEventListener('DOMContentLoaded', function () {
@@ -186,17 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
       spojiNekretnine(divPp, nekretnine, "Poslovni prostor");
       
 
-       //const filtriraj = document.getElementById('filtrirajBttn');
-/////filtriranje
-
-
-  //////////
-      /////////////////////////////////////////////////////////////////////////
-      /*for (let i = 0; i < data.length; i++) { //testiranje
-        let ime = document.createElement("p");
-        ime.textContent = data[i].naziv;
-        nekretninecont.appendChild(ime);
-      }*/
+    
     }
   });
 
@@ -252,26 +217,10 @@ document.addEventListener('DOMContentLoaded', function () {
       divPp = document.getElementById("pp");
 
       spojiNekretnine(divStan, nekretnine2, "Stan");
-      //setTimeout(function (){
         spojiNekretnine(divKuca, nekretnine2, "Kuća");
-      //}, 500);
-
-      //setTimeout(function (){
         spojiNekretnine(divPp, nekretnine2, "Poslovni prostor");
-      //}, 1000);
-      
-      
-
-     /* const idsPrikazanih = filtrirane.map(property => property.id);
-      console.log("idevi", idsPrikazanih);*/
-    /* MarketingAjax.marketingNekretnine({nizNekretninaIds: idsPrikazanih}, function(error, data){
-        if(error){
-          console.log("Doslo je do greske");
-        }
-        else{
-          console.log("uspjesno azuriranje");
-        }
-      });*/
+   
+  
       MarketingAjax.novoFiltriranje(filtrirane);
 
   };
@@ -282,4 +231,3 @@ document.addEventListener('DOMContentLoaded', function () {
 };
 
 
- ///////////////////////////////////

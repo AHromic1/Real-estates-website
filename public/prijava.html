@@ -10,16 +10,6 @@
 </head>
 <body>
 <object data="menu.html" class="meniPos" id = "ucitaniMeni"></object> 
- <!--<div id="meni">
-  <ul>
-    <li><a href="/profil.html" target="_blank">Profil</a></li>
-    <li><a href="/nekretnine.html" target="_blank">Nekretnine</a></li>
-    <li><a href="/detalji.html" target="_blank">Detalji</a></li>
-    <li id="loginLink"><a href="/prijava.html" target="_blank">Prijava</a></li>
-    <li style="display: none;" id="logoutLink"><a href="/prijava.html" target="_blank">Odjava</a></li>
-  </ul>
-</div> -->
- <!---->
   <div class="centerAlign">
     <div>
       <div class="imgPos">
@@ -38,7 +28,6 @@
   <script src="scripts/PoziviAjax.js"></script>
 
   <script>
-    // window.onload = function() {
     document.addEventListener('DOMContentLoaded', function () {
       const meni = document.getElementById('ucitaniMeni');
       
@@ -64,52 +53,20 @@
           PoziviAjax.postLogin(usernameInput.value, plainTextPassword, function (error, data) {
            // console.log("desilo se ovo");
         if (error===null && data && data.poruka=='Uspješna prijava') {
-          //prijava.style.display = 'inline';
-        //odjava.style.display = 'none';
-        const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
-      console.log(isLoggedIn);
-
-   // meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
+          const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
+          console.log(isLoggedIn);
           meniSadrzaj.defaultView.updateMenuContent(true);
-
           console.log("successful log in");
         } else {
-          //prijava.style.display = 'none';
-        //odjava.style.display = 'inline';
-        //const isLoggedIn = true;
         console.error('Error while logging in:', error);
-       
         }
       });
-    
-
           //////////////////////////////////////////////////////////////////////////////////////////////
         });
        } }
-    });
-  //}
+   });
+
   </script>
-<!--
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-const meni = document.getElementById('ucitaniMeni');
 
-meni.onload = function () {
-  const meniSadrzaj = meni.contentDocument;
-
-  if (meniSadrzaj) {
-    const prijava = meniSadrzaj.getElementById('login');
-    const odjava = meniSadrzaj.getElementById('logout');
-
-
-    const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
-      console.log(isLoggedIn);
-
-    meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
-  }
-}
-});
-
-</script>-->
 </body>
 </html>

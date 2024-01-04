@@ -5,7 +5,7 @@ const MarketingAjax = (() => {
     let brojacUcitavanja = 0;
     let brojacKlikova = 0;
 
-    const divNekretnineRoditelj = document.getElementById("divNekretnine");
+const divNekretnineRoditelj = document.getElementById("divNekretnine");
     
   osvjezi = setInterval(() => {
         MarketingAjax.osvjeziKlikove(divNekretnineRoditelj);
@@ -40,17 +40,6 @@ const MarketingAjax = (() => {
          .catch(error => fnCallback(null, error));*/
  }
  
-
- 
-     /*function impl_postMarketingNekretnineId(id, fnCallback) {
-        let url = `/marketing/nekretnine/${id}`;
-         kontaktirajServer('POST', url, null, fnCallback);
-     }
- 
-     function impl_postMarketingNekretnine(noviPodaci, fnCallback) {
-         kontaktirajServer('POST', '/marketing/nekretnine', noviPodaci, fnCallback);
-     }*/
-
      function osvjeziPretrage(divNekretnine){
         brojacUcitavanja++;
         console.log("UCITAVANJA", brojacUcitavanja);
@@ -60,6 +49,7 @@ const MarketingAjax = (() => {
         let dugmiciNiz = Array.from(dugmici);
         console.log("dugmici", dugmiciNiz);
         let ids = [];
+        let nizNekretnina;
         console.log("duzina", dugmiciNiz.length);
         console.log("NOVA PRETRHA", novaPretraga);
         if(brojacUcitavanja === 1 || novaPretraga === true){ //samo prvi put uzimam iz html-a id-eve - i kada dodje do promjene, tj do filtriranja
@@ -95,20 +85,16 @@ const MarketingAjax = (() => {
                 console.log("url", `pretrage-${x.id}`);
                 const idElement = `pretrage-${x.id}`;
                 let element = divNekretnine.querySelector(`#${idElement}`);
-               
-                //if(element){
+
                     console.log("ovdje");
                     element.innerText = `Pretrage: ${x.pretrage}`;
-                //}
             }
         }
-        /*else{
-            console.log("error");
-        }*/
+ 
         });
     }
     else{
-        kontaktirajServer('POST', '/marketing/osvjezi', null, function(error, data){
+        kontaktirajServer('POST', '/marketing/osvjezi', {}, function(error, data){
             if(data){
             console.log("Response:", data);
             const osvjezeneNekretnine = data.nizNekretnina;//response.nizNekretnina;
@@ -179,19 +165,16 @@ const MarketingAjax = (() => {
                 const idElement = `klikovi-${x.id}`;
                 let element = divNekretnine.querySelector(`#${idElement}`);
                console.log("element", element);
-                //if(element){
+ 
                     console.log("ovdje");
                     element.innerText = `Klikovi: ${x.klikovi}`;
-                //}
             }
         }
-        /*else{
-            console.log("error");
-        }*/
+        
         });
     }
     else{
-        kontaktirajServer('POST', '/marketing/osvjezi', null, function(error, data){
+        kontaktirajServer('POST', '/marketing/osvjezi', {}, function(error, data){
             if(data){
             console.log("Response:", data);
             const osvjezeneNekretnine = data.nizNekretnina;//response.nizNekretnina;
@@ -206,20 +189,16 @@ const MarketingAjax = (() => {
                 console.log("url", `klikovi-${x.id}`);
                 const idElement = `klikovi-${x.id}`;
                 let element = divNekretnine.querySelector(`#${idElement}`);
-               console.log("element", element);
-                //if(element){
-                    console.log("ovdje");
+               //console.log("element", element);
+                   // console.log("ovdje");
                     element.innerText = `Klikovi: ${x.klikovi}`;
-                //}
+
             }
         }
-        /*else{
-            console.log("error");
-        }*/
+        
         });
     }
-   // }
-   // noviKlik = false;
+
      }
 
     function novoFiltriranje(listaFiltriranihNekretnina){
@@ -230,8 +209,6 @@ const MarketingAjax = (() => {
             if(data){
                 console.log("Pregledi uspjesno azurirani");
                 novaPretraga = true;
-                //osvjeziPretrage(divNekretnineRoditelj);
-                //osvjeziKlikove(divNekretnineRoditelj);
             }
             else{
                 console.log("Error");
