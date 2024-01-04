@@ -70,15 +70,9 @@ app.get('/prijava.html', (req, res) => {
     serveHtml('profil.html', res);
    }
   });
-
-  ////////////////
-
   
-  //////////////////////
-
-  
-  ////treba ubaciti hashirane lozinke u korisnike!
-  //potrebno je 2 puta kliknuti na prijava ukoliko lozinka nije hashirana
+  //potrebno je 2 puta kliknuti na prijava ukoliko lozinka nije hashirana (hash radim u prijavi, s obzirom na to da 
+  //nije receno gdje, a ne postoji opcija registracije gdje bi se ovaj hash mogao uraditi)
 app.post('/login', async (req, res) => {
  // const { username, password } = req.body;
 
@@ -97,12 +91,10 @@ console.log("korisnici", korisnici);
         break;
       }
     }
-    //const korisnik = korisnici.find((user) => user.username === username);
-    //const idKorisnika = null;
+
   console.log("korisnik");
   console.log(korisnik);
   
-  //req.session.uname = korisnik;
   console.log("LOGIN RUTA UNAME", req.session.uname);
   
 console.log("nesto");
@@ -119,7 +111,7 @@ console.log("nesto");
     bcrypt.hash(korisnik.password, 10, async (error, hash) => {
       if (error) {
         console.error('greska u hashiranju:', error);
-        return res.status(500).json({ greska: 'greska' });
+        return res.status(500).json({ greska: 'Neuspješna prijava' });
       } else {
         korisnik.password = hash;
         await fs.writeFile(korisniciPut, JSON.stringify(korisnici, null, 2), { encoding: 'utf-8' });
@@ -150,11 +142,6 @@ catch(error){
 
   
 app.post('/logout', (req, res) => {
-
- /* if (!req.session.uname) {  //uname je username! ako neko nije prijavljen ne treba mi se ni odjavljivati
-    return res.status(401).json({ greska: 'Neautorizovan pristup' });
-  }*/
-
 
    req.session.destroy((err) => {
     if (err) {
@@ -209,9 +196,6 @@ app.post('/upit', async (req,res)=>{
 
   const {nekretnina_id, tekst_upita } = req.body;
 
- 
-  //const korisnik = req.session.uname;
-
   const nekretninePath = path.join(__dirname, 'data', 'nekretnine.json');
   const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
   const nekretnine = JSON.parse(nekretnineData);
@@ -250,7 +234,7 @@ app.post('/upit', async (req,res)=>{
     }
 console.log("idKorisnika", idKorisnika);
   nekretnine[id_nekretnine - 1].upiti.push({ id_korisnika: idKorisnika, tekst_upita:tekst_upita });
-//opet -1, zbog postavke spirale
+
 
  await fs.writeFile(nekretninePath, JSON.stringify(nekretnine, null, 2))  //2 je za razmak, ljepse
     .then(() => {
@@ -265,10 +249,7 @@ console.log("idKorisnika", idKorisnika);
 
 app.put('/korisnik', async(req, res) =>{
     const {ime, prezime, username, password} = req.body;
-    //////sta ako se azurira samo nesto???
-    
-    ///U postavci nije naglašeno ko ima pristup ovoj akciji, za slucaj da je potrebno biti ulogovan
-    //ukoliko se odkomentarise /**/ komentar radit ce tako da je moguce da samo korisnik pristupi
+   
     var korisnik = req.session.uname;
     if(!korisnik){
       return res.status(401).json({greska: 'Neautorizovan pristup'});
