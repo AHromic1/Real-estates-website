@@ -34,10 +34,6 @@ const divNekretnineRoditelj = document.getElementById("divNekretnine");
          .then(response => response.json())
          .then(data => fnCallback(null, data))
          .catch(error => fnCallback(error, null));
-         /*fetch(`http://localhost:3000${url}`, requestOptions)
-         .then(response => response.json())
-         .then(data => fnCallback(data, null))
-         .catch(error => fnCallback(null, error));*/
  }
  
      function osvjeziPretrage(divNekretnine){
