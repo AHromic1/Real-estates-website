@@ -455,10 +455,45 @@ app.get('/nekretnine', async (req, res) => {
       }
   });
    
+  app.get('/nekretnina:id', async(req, res) => {
+      try{
+        console.log("uslo se");
+        //let x = JSON.parse(req.params.id);
+       let x = 1;
+       // console.log("x", x);
+        //const {nizNekretninaIds} = req.body;
+       // const nizNekretninaIds = req.body.nizNekretninaIds;
+       console.log("uslo se");
+        const nekretninePath = path.join(__dirname, 'data', 'nekretnine.json');
+        const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
+        let nekretnine = JSON.parse(nekretnineData);
+        console.log("+", nekretnine);
+        let nekretnina;
+          let postoji = 0;
+          for(el of nekretnine){
+            console.log(el.pretrage);
+              if(x == el.id){
+                postoji = 1;
+                nekretnina = el;
+                break;
+              }
+          }
+          if(postoji === 0){ 
+            res.status(400).send({greska: `Nekretnina sa id-em ${x} ne postoji`});
+          }
+          console.log(nekretnina);
+        res.status(200).send({nekretnina});
+      }
+      catch(error){
+        res.status(500).send();
+      }
+    }
+    );
+
 
 
 app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+  console.log('Server pokrenut na portu 3000');
 });
 
 

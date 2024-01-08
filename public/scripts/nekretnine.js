@@ -2,9 +2,16 @@
  //import prvog
  //console.log("ucitana skripta");
  //import { SpisakNekretnina } from "./SpisakNekretnina.js";  //trenutni folder
+
+
+
  /////
  let prosirenaNekretnina = null;
  let prosirenaSlika = null;
+ let prethodnoDugme = null;
+ let prethodnaLokacija = null;
+ let prethodnaGod = null;
+ let prethodnoOtvoriDugme = null;
 
     function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
       // pozivanje metode za filtriranje
@@ -28,13 +35,40 @@
           let pretrage = document.createElement("p");
           pretrage.id = `pretrage-${x.id}`;
           console.log("klikovi.id", klikovi.id);
+          let pLokacija = document.createElement("p");
+          let pGodIzgradnje = document.createElement("p");
           //klikovi.setAttribute("id", `pretrage-${x.id}`); 
-          
+          let otvoriDetaljeBttn = document.createElement("button");
          // pretrage.setAttribute("id", `klikovi-${x.id}`);
           detailsButton.setAttribute("id", `detalji-${x.id}`);
-          
+          pLokacija.style.display = "none";
           let prosireniDetalji;
+         
+          otvoriDetaljeBttn.textContent = "Otvori detalje";
+          otvoriDetaljeBttn.style.display = "none";
+          otvoriDetaljeBttn.style.marginLeft = "60%";
+          otvoriDetaljeBttn.style.width = "100px";
+
+          /////////////////////////////////////////////////////////
           detailsButton.addEventListener('click', function () {
+            console.log("detalji kliknuti");
+            console.log("prethodne na pocetku", prethodnoDugme, prethodnaLokacija, prethodnaGod);
+           // detailsButton.display = "none";
+
+            detailsButton.style.display = "none";
+            otvoriDetaljeBttn.style.marginRight = "160px";
+            otvoriDetaljeBttn.style.width = "200px";
+            pLokacija.style.display = "inline";
+            pLokacija.style.marginLeft = "20px";
+            pLokacija.textContent = `Lokacija: ${x.lokacija}`;
+            pGodIzgradnje.textContent = `Godina izgradnje: ${x.godina_izgradnje}`;
+            pGodIzgradnje.style.display = "inline";
+            otvoriDetaljeBttn.style.display = "inline";
+
+            otvoriDetaljeBttn.addEventListener('click', function (){
+              window.open('../detalji.html');
+            });
+            
             //console.log("prosirena nekretnina", prosirenaNekretnina);
             if (prosirenaNekretnina && prosirenaNekretnina !== divNekretnina) {
               prosirenaSlika.style.width = "300px";
@@ -42,7 +76,15 @@
               prosirenaNekretnina.style.gridColumn = "span 1";
               //prosireniDetalji.style.columnGap="20px";
           }
-            // ovdje event listener
+          
+          if(prethodnaLokacija && prethodnaLokacija != pLokacija){
+            console.log("prethodna");
+            prethodnaLokacija.style.display = "none";
+            prethodnaGod.style.display = "none";
+            prethodnoDugme.style.display = "inline";
+            prethodnoOtvoriDugme.style.display = "none";
+          }
+     
             divNekretnina.style.width = "500px";
             imgNekretnina.style.width = "500px";
             divNekretnina.style.gridColumn = "span 2";
@@ -55,7 +97,14 @@
             MarketingAjax.klikNekretnina(id);
             prosirenaNekretnina = divNekretnina;
             prosirenaSlika = imgNekretnina;
-           // prosireniDetalji = divDetails;
+
+            prethodnoDugme = detailsButton;
+            prethodnaLokacija = pLokacija;
+            prethodnaGod = pGodIzgradnje;
+            prethodnoOtvoriDugme = otvoriDetaljeBttn;
+            console.log("prethodne", prethodnoDugme, prethodnaLokacija, prethodnaGod);
+
+           //prosireniDetalji = divDetails;
             //console.log("prosirena 2", prosireniDetalji);
           });
 
@@ -101,12 +150,16 @@
           divSubdetails.appendChild(noviRed);
           divSubdetails.appendChild(klikovi);
           divSubdetails.appendChild(pretrage);
+          divSubdetails.appendChild(pLokacija);
+          divSubdetails.appendChild(pGodIzgradnje);
+          //divSubdetails.appendChild(otvoriDetaljeBttn);
           detailsButton.value = 'Detalji';
           detailsButton.type = 'button';
           divButton.classList.add("centerAlign");
           divButton.classList.add("detailsButton");
           divNekretnina.appendChild(divButton);
           divButton.appendChild(detailsButton);
+          divButton.appendChild(otvoriDetaljeBttn);
           if(divReferenca)
           divReferenca.appendChild(divDetails);
 
@@ -166,7 +219,7 @@
   });
 
   function filtriraj() {
-    console.log("usao u funkciju");
+   // console.log("usao u funkciju");
     let minCijena = parseInt(document.getElementById('minCijena').value);
   let maxCijena = parseInt(document.getElementById('maxCijena').value);
   let maxKvadratura = parseInt(document.getElementById('maxKvadratura').value);
