@@ -455,15 +455,11 @@ app.get('/nekretnine', async (req, res) => {
       }
   });
    
-  app.get('/nekretnina:id', async(req, res) => {
+  app.get('/nekretnina/:id', async(req, res) => {
       try{
-        console.log("uslo se");
-        //let x = JSON.parse(req.params.id);
-       let x = 1;
-       // console.log("x", x);
-        //const {nizNekretninaIds} = req.body;
-       // const nizNekretninaIds = req.body.nizNekretninaIds;
-       console.log("uslo se");
+        //console.log("uslo se");
+        let x = JSON.parse(req.params.id);
+      // console.log("uslo se");
         const nekretninePath = path.join(__dirname, 'data', 'nekretnine.json');
         const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
         let nekretnine = JSON.parse(nekretnineData);

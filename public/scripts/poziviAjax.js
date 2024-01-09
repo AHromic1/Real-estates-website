@@ -20,6 +20,11 @@ function kontaktirajServer(method, url, data, fnCallback) {
         .catch(error => fnCallback(error, null));
 }
 
+function impl_getNekretninaById(nekretnina_id, fnCallback) {
+    let url = `/nekretnina/${nekretnina_id}`;
+    kontaktirajServer('GET', url, null, fnCallback);
+}
+
 //testirati ove 3! - rute su testirane kroz postman, sve rade onako kako je ocekivano ( : 
 
     function impl_getKorisnik(fnCallback) {
@@ -59,6 +64,7 @@ function kontaktirajServer(method, url, data, fnCallback) {
         getKorisnik: impl_getKorisnik,
         putKorisnik: impl_putKorisnik,
         postUpit: impl_postUpit,
-        getNekretnine: impl_getNekretnine
+        getNekretnine: impl_getNekretnine,
+        getNekretnina: impl_getNekretninaById
     };
 })();
