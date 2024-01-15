@@ -1,91 +1,23 @@
 <!doctype html>
 <html lang="hr">
   <head>
-    <link rel="stylesheet" type="text/css" href="../css/detaljiStil.css"> <!--moram prvo izaci iz html foldera!-->
+    <link rel="stylesheet" type="text/css" href="../css/detaljiStil.css"> 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Detalji</title>
   </head>
   <body>
     <object data="menu.html" class="meniPos" id="ucitaniMeni3"></object>
-    <div class="alignment">
-    <h3 class="posSubheading1">OSNOVNO</h3>
-    <div id="osnovno"> 
-        <div class="centerAlign pos">
-        <img src="../images/detailsKuca.jpg" alt="Koliba"> <!--da li slike treba da su relativne ili apsolutne? Koliko stanova i sl. staviti?-->
-        </div>
-        <p class="pos"><b >Naziv: </b>Koliba</p>
-        <p class="pos"><b>Kvadratura: </b>100 000 KM</p>
-        <p class="pos"><b>Cijena: </b>70 m2</p>
+  
+    
+   
+   
+    <div id="detalji">
     </div>
 
-    <h3 class="posSubheading1">DETALJI</h3>
-    <div id="detalji"> 
-        <table>
-            <tr>
-            <td>
-            <p class="pos"><b>Tip grijanja: </b> plin</p>
-            </td>
-            <td>
-            <p class="pos"><b>Godina izgradnje: </b> 2019</p>
-            </td>
-            </tr>
-            <tr>
-            <td>
-            <p class="pos"><b>Lokacija: </b> Stari Grad</p>
-            </td>
-            <td>
-            <p class="pos"><b>Datum objave: </b> 01.10.2023.</p>
-            </td>
-            </tr>
-            <tr>
-            <td colspan="2">
-            <p class="pos"><b>Opis: </b>Kuća s pogledom na grad. Dvije spavaće sobe, dva sprata s potkrovljem. Jedno kupatilo, kuhinja i dnevna soba.
-            Postoji mogućnost uvođenja centralnog grijanja.</p>
-            </td>
-            </tr>
-        </table>
-    </div>
 
-    <h3 class="posSubheading2">UPITI</h3>
-    <div id="upiti"> 
-        <ul>
-        <li>
-            <div class="upit posSubheading2">
-            <p><b>username1</b></p>
-            <p>Odlicna nekretnina! Lokacija je odlična, nadomak grada.</p>
-            </div>
-        </li>
-        <li>
-            <div class="upit posSubheading2">
-            <p><b>username2</b></p>
-            <p>Zanimljiva nekretnina, ukusno uređena. Vlasnici su pristupačni i ljubazni.</p>
-            </div>
-        </li>
-    </ul>
-    </div>
-
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-  const meni = document.getElementById('ucitaniMeni3');
-
-  meni.onload = function () {
-    const meniSadrzaj = meni.contentDocument;
-
-    if (meniSadrzaj) {
-      const prijava = meniSadrzaj.getElementById('login');
-      const odjava = meniSadrzaj.getElementById('logout');
-
-      const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
-        console.log(isLoggedIn);
-
-      meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
-    }
-  }
-});
-
-</script>
+    <script src="scripts/PoziviAjax.js"></script>
+    <script src="scripts/detalji.js"></script>
+    <script src="scripts/spojiUpite.js"></script>
   </body>
 </html>

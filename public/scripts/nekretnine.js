@@ -12,6 +12,7 @@
  let prethodnaLokacija = null;
  let prethodnaGod = null;
  let prethodnoOtvoriDugme = null;
+ let idNekretnine = null;
 
     function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
       // pozivanje metode za filtriranje
@@ -66,6 +67,8 @@
             otvoriDetaljeBttn.style.display = "inline";
 
             otvoriDetaljeBttn.addEventListener('click', function (){
+              idNekretnine = x.id;
+              localStorage.setItem("idNekretnine", idNekretnine);
               window.open('../detalji.html');
             });
             
@@ -74,7 +77,6 @@
               prosirenaSlika.style.width = "300px";
               prosirenaNekretnina.style.width = "300px";
               prosirenaNekretnina.style.gridColumn = "span 1";
-              //prosireniDetalji.style.columnGap="20px";
           }
           
           if(prethodnaLokacija && prethodnaLokacija != pLokacija){
