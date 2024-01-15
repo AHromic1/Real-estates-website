@@ -233,7 +233,7 @@ app.post('/upit', async (req,res)=>{
       }
     }
 console.log("idKorisnika", idKorisnika);
-  nekretnine[id_nekretnine - 1].upiti.push({ id_korisnika: idKorisnika, tekst_upita:tekst_upita });
+  nekretnine[id_nekretnine - 1].upiti.push({ korisnik_id: idKorisnika, tekst_upita:tekst_upita });
 
 
  await fs.writeFile(nekretninePath, JSON.stringify(nekretnine, null, 2))  //2 je za razmak, ljepse
@@ -487,6 +487,36 @@ app.get('/nekretnine', async (req, res) => {
     );
 
 
+    app.get('/korisnik/:id', async(req, res) => {
+      try{
+        //console.log("uslo se");
+        let x = JSON.parse(req.params.id);
+      // console.log("uslo se");
+        const korisniciPath = path.join(__dirname, 'data', 'korisnici.json');
+        const korisniciData = await fs.readFile(korisniciPath, 'utf-8');  //jedna tacka je za current directory!!!
+        let korisnici = JSON.parse(korisniciData);
+        console.log("+", korisnici);
+        let korisnik;
+          let postoji = 0;
+          for(el of korisnici){
+            console.log(el.pretrage);
+              if(x == el.id){
+                postoji = 1;
+                korisnik = el;
+                break;
+              }
+          }
+          if(postoji === 0){ 
+            res.status(400).send({greska: `Korisnik sa id-em ${x} ne postoji`});
+          }
+          console.log(korisnik);
+        res.status(200).send({korisnik});
+      }
+      catch(error){
+        res.status(500).send();
+      }
+    }
+    );
 
 app.listen(3000, () => {
   console.log('Server pokrenut na portu 3000');

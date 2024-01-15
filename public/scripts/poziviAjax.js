@@ -25,6 +25,13 @@ function impl_getNekretninaById(nekretnina_id, fnCallback) {
     kontaktirajServer('GET', url, null, fnCallback);
 }
 
+function impl_getKorisnikById(korisnik_id, fnCallback) {
+    console.log("KORISNIK ID IZ AJAXA", korisnik_id);
+    let url = `/korisnik/${korisnik_id}`;
+    console.log(url);
+    kontaktirajServer('GET', url, null, fnCallback);
+}
+
 //testirati ove 3! - rute su testirane kroz postman, sve rade onako kako je ocekivano ( : 
 
     function impl_getKorisnik(fnCallback) {
@@ -65,6 +72,7 @@ function impl_getNekretninaById(nekretnina_id, fnCallback) {
         putKorisnik: impl_putKorisnik,
         postUpit: impl_postUpit,
         getNekretnine: impl_getNekretnine,
-        getNekretnina: impl_getNekretninaById
+        getNekretnina: impl_getNekretninaById,
+        getKorisnikById: impl_getKorisnikById
     };
 })();

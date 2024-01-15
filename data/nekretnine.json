@@ -20,12 +20,8 @@
         "tekst_upita": "Phasellus viverra nulla."
       },
       {
-        "id_korisnika": 1,
-        "tekst_upita": "Upit za nekretninu"
-      },
-      {
-        "id_korisnika": 2,
-        "tekst_upita": "Upit za nekretninu"
+        "korisnik_id": 2,
+        "tekst_upita": "Koliko kosta"
       }
     ]
   },
