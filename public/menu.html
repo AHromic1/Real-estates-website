@@ -65,8 +65,9 @@
           else{
             console.log("Uspjesna odjava");
             localStorage.setItem('prijavljen', 'false');
+            console.log("DA LI JE PRIJAVLJEN", localStorage.getItem('prijavljen'));
            // localStorage.removeItem('prijavljen'); //vise nije prijavljen
-        updateMenuContent(false);  //promijeniti sve u pocetno stanje
+            updateMenuContent(false);  //promijeniti sve u pocetno stanje
           }
         });
        

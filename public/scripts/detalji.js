@@ -103,14 +103,14 @@ function spojiDetalje(divReferenca, nek) {
         const meni = document.getElementById('ucitaniMeni3');
       
         meni.onload = function () {
-          const meniSadrzaj = meni.contentDocument;
+        const meniSadrzaj = meni.contentDocument;
       
           if (meniSadrzaj) {
             const prijava = meniSadrzaj.getElementById('login');
             const odjava = meniSadrzaj.getElementById('logout');
       
             const isLoggedIn = localStorage.getItem('prijavljen') === 'true';
-              console.log(isLoggedIn);
+            console.log(isLoggedIn);
       
             meniSadrzaj.defaultView.updateMenuContent(isLoggedIn);
           }
