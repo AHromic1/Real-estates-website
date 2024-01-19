@@ -34,7 +34,6 @@
           let noviRed = document.createElement("br");
           let divButton = document.createElement("div");
           let detailsButton = document.createElement("button");
-          detailsButton.classList.add("detailsBttn");
           detailsButton.textContent = "Detalji";
           let klikovi = document.createElement("p");
           klikovi.id = `klikovi-${x.id}`;
@@ -43,17 +42,12 @@
           console.log("klikovi.id", klikovi.id);
           let pLokacija = document.createElement("p");
           let pGodIzgradnje = document.createElement("p");
-          //klikovi.setAttribute("id", `pretrage-${x.id}`); 
           let otvoriDetaljeBttn = document.createElement("button");
-         // pretrage.setAttribute("id", `klikovi-${x.id}`);
           detailsButton.setAttribute("id", `detalji-${x.id}`);
           pLokacija.style.display = "none";
           let prosireniDetalji;
-         
           otvoriDetaljeBttn.textContent = "Otvori detalje";
           otvoriDetaljeBttn.style.display = "none";
-          otvoriDetaljeBttn.style.marginLeft = "60%";
-          otvoriDetaljeBttn.style.width = "100px";
 
           /////////////////////////////////////////////////////////
           detailsButton.addEventListener('click', function () {
