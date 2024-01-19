@@ -202,7 +202,7 @@ app.put('/korisnik', async(req, res) => {
       korisnik.password = hashiranPassword;
     }
     await korisnik.save();
-    return res.status(200).json({greska: 'Uspjesno ste updateovali'});
+    return res.status(200).json({poruka: 'Uspjesno ste updateovali'});
   }
   catch(error){
     console.log(error);
