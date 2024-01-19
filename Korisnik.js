@@ -2,22 +2,22 @@ const Sequelize = require("sequelize");
 const sequelize = require("./baza.js");
 
 module.exports = function (sequelize, DataTypes) {
-    const Upiti = sequelize.define('Upiti', {
+    const Korisnici = sequelize.define('Korisnik', {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
-       korisnik_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true
-       },
-       nekretnina_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true
-       },
-       tekst_upita: Sequelize.STRING
-   });
-   return Upiti;
+       ime: Sequelize.STRING,
+       prezime: Sequelize.STRING,
+       username: Sequelize.STRING,
+       password: Sequelize.STRING
+   },
+   {
+    tableName: 'Korisnik',
+    timestamps: false
+       
+    });
+   return Korisnici;
 }

@@ -9,9 +9,9 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 //tabele  __dirname, 'data', 'korisnici.json'
-db.nekretnine = require("./nekretnine.js")(sequelize);
-db.korisnici = require("./korisnici.js")(sequelize);
-db.upiti = require("./upiti.js")(sequelize);
+db.nekretnine = require("./Nekretnina.js")(sequelize);
+db.korisnici = require("./Korisnik.js")(sequelize);
+db.upiti = require("./Upit.js")(sequelize);
 
 //relacije izmedju tabela
 db.nekretnine.hasMany(db.upiti, { foreignKey: 'nekretnina_id' });

@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const sequelize = require("./baza.js");
 
 module.exports = function (sequelize, DataTypes) {
-    const Nekretnine = sequelize.define('Nekretnine', {
+    const Nekretnine = sequelize.define('Nekretnina', {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -20,6 +20,10 @@ module.exports = function (sequelize, DataTypes) {
        opis: Sequelize.STRING,
        klikovi: Sequelize.INTEGER,
        pretrage: Sequelize.INTEGER
-   });
+   },
+   {
+    tableName: 'Nekretnina',
+    timestamps: false
+    });
    return Nekretnine;
 }

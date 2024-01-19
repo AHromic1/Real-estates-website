@@ -110,7 +110,7 @@ function init() {
 }
 
 
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync({force: true}).then(function () {
     init().then(function () {
         console.log("Gotovo kreiranje tabela i ubacivanje pocetnih podataka!");
         process.exit();
