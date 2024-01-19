@@ -9,7 +9,8 @@ console.log("uslo se u upite.js");
 
     PoziviAjax.getNekretnina(idNekretnine, function(error, data){
         if(data){
-            spojiUpite(divRef, data.nekretnina);
+          console.log("DATA IZ UPITA", data);
+            spojiUpite(divRef, data.nekretnina, data.upiti);
             //spojiNoveUpite(divRef);
         }
         else{
@@ -17,7 +18,7 @@ console.log("uslo se u upite.js");
         }
     });
 
-function spojiUpite(divReferenca, nekretnina) {
+function spojiUpite(divReferenca, nekretnina, upiti) {
     console.log("spojiUpite je pozvana"); 
             //treca cjelina
            let h33 = document.createElement("h3");
@@ -26,7 +27,8 @@ function spojiUpite(divReferenca, nekretnina) {
             divReferenca.appendChild(h33);
             divUpiti = document.createElement("div");
             ul = document.createElement("ul");
-            let listaUpita = nekretnina.upiti;
+            console.log("NEKRETNINA", nekretnina);
+            let listaUpita = upiti;
             console.log("listaupita", listaUpita);
             let usaoUPetlju = false;
             for(let upit of listaUpita){
@@ -35,7 +37,8 @@ function spojiUpite(divReferenca, nekretnina) {
               console.log("upit ID", upit.korisnik_id);
               PoziviAjax.getKorisnikById(upit.korisnik_id, function(error, data){
                 if(data){
-                  username = data.korisnik.username;
+                  console.log("DATA ZA KORISNIKA", data);
+                  username = data.username;
                   console.log("data korisnik", data);
                   console.log("upit iz liste", upit);
                   let li1 = document.createElement("li");
