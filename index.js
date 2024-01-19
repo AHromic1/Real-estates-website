@@ -1,3 +1,5 @@
+const db = require("./baza.js");
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
@@ -74,33 +76,11 @@ app.get('/prijava.html', (req, res) => {
   //potrebno je 2 puta kliknuti na prijava ukoliko lozinka nije hashirana (hash radim u prijavi, s obzirom na to da 
   //nije receno gdje, a ne postoji opcija registracije gdje bi se ovaj hash mogao uraditi)
 app.post('/login', async (req, res) => {
- // const { username, password } = req.body;
-
   try{
-    let korisniciPut = path.join(__dirname, 'data', 'korisnici.json');
-  const korisniciJson = await fs.readFile(korisniciPut, 'utf-8');
-    const korisnici = JSON.parse(korisniciJson);
-console.log("korisnici", korisnici);
     const { username, password } = req.body;
-    console.log("username");
-    console.log(username);
-    let korisnik;
-    for (x of korisnici){
-      if(x.username == username){
-        korisnik = x;
-        break;
-      }
-    }
-
-  console.log("korisnik");
-  console.log(korisnik);
-  
-  console.log("LOGIN RUTA UNAME", req.session.uname);
-  
-console.log("nesto");
+    let korisnik = await db.korisnici.findOne({where: {username: username}});
   if (!korisnik) {
     console.log("korisnik ne postoji");
-
     return res.status(401).json({ greska: 'Neuspješna prijava' });
   }
   
@@ -114,7 +94,7 @@ console.log("nesto");
         return res.status(500).json({ greska: 'Neuspješna prijava' });
       } else {
         korisnik.password = hash;
-        await fs.writeFile(korisniciPut, JSON.stringify(korisnici, null, 2), { encoding: 'utf-8' });
+        await korisnik.save();
       }
     });
   }
@@ -155,301 +135,157 @@ app.post('/logout', (req, res) => {
 });
 
 
-app.get('/korisnik', async (req,res)=>{
-   var korisnik =  req.session.uname;
-   console.log("korisnik", korisnik);
-   if(!korisnik){
+app.get('/korisnik', async (req,res) => {
+   var korisnickoIme =  req.session.uname;
+    console.log("username", korisnickoIme);
+   if(!korisnickoIme){
     console.log("neautorizovan pristup");
     return res.status(401).json({ greska: 'Neautorizovan pristup'});
    }
    else{
-    let korisniciPut = path.join(__dirname, 'data', 'korisnici.json');
-    let korisniciJson = await fs.readFile(korisniciPut, 'utf-8');  //jedna tacka je za current directory!!!
-    let korisniciPodaci = JSON.parse(korisniciJson);
-    let trazeniId = null;
-    for(k of korisniciPodaci){
-      if(k.username == korisnik){
-        trazeniId = k.id;
-        break;
-      }
-    }
+    let korisnik = await db.korisnici.findOne({where: {username: korisnickoIme}});
 
-    const detalji = {
-      id: korisniciPodaci[trazeniId].id,
-      ime: korisniciPodaci[trazeniId].ime,
-      prezime: korisniciPodaci[trazeniId].prezime,
-      username: korisniciPodaci[trazeniId].username,
-      password: korisniciPodaci[trazeniId].password
-
-    };
-
-    return res.status(200).json(detalji);
+    //let korisnik = await db.korisnici.findOne({where: {username}});
+    return res.status(200).json(korisnik);
    }
+  
 });
 
 app.post('/upit', async (req,res)=>{
-  var korisnik = req.session.uname;
-  if (!korisnik) {
-    res.status(401).json({ greska: 'Neautorizovan pristup' });
+  try{
+  var korisnickoIme = req.session.uname;
+  if (!korisnickoIme) {
+    res.status(401).json({greska: 'Neautorizovan pristup'});
     return;
   }
 
   const {nekretnina_id, tekst_upita } = req.body;
 
-  const nekretninePath = path.join(__dirname, 'data', 'nekretnine.json');
-  const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
-  const nekretnine = JSON.parse(nekretnineData);
-  console.log("NEKRETNINE", nekretnine);
-  console.log(nekretnina_id);
-    let id_nekretnine = null;
-    let trazenaNekretnina = null;
-    for (let nekretnina of nekretnine){
-      console.log("u petlji", nekretnina.id);
-      console.log("iz req", nekretnina_id);
-      if (nekretnina.id == nekretnina_id){
-        console.log(nekretnina.id);
-        trazenaNekretnina = nekretnina;
-        id_nekretnine = nekretnina_id;
-        break;
-      }
-    }
-  console.log("id je", id_nekretnine);
-  if (id_nekretnine === null) {
+  let korisnik = await db.korisnici.findOne({where: {username: korisnickoIme}});
+  let nekretnina = await db.nekretnine.findByPk(nekretnina_id);
+  
+  if (nekretnina === null) {
     res.status(400).json({ greska: `Nekretnina sa id-em ${nekretnina_id} ne postoji` });
     return;
   }
 
-  const korisniciPath = path.join(__dirname, 'data', 'korisnici.json');
-  const korisniciData = await fs.readFile(korisniciPath, 'utf-8');  //jedna tacka je za current directory!!!
-  const korisnici = JSON.parse(korisniciData);
+  if (korisnik === null) {
+    res.status(400).json({ greska: `Korisnik ne postoji` });
+    return;
+  }
 
-  let idKorisnika = null;
-    console.log("idKorisnika", korisnik);
-    for (let k of korisnici){
-      if (k.username === korisnik){
-        console.log("k username u petlji", k.username);
-        idKorisnika = k.id;
-        break;
-      }
-    }
-console.log("idKorisnika", idKorisnika);
-  nekretnine[id_nekretnine - 1].upiti.push({ korisnik_id: idKorisnika, tekst_upita:tekst_upita });
-
-
- await fs.writeFile(nekretninePath, JSON.stringify(nekretnine, null, 2))  //2 je za razmak, ljepse
-    .then(() => {
-      res.status(200).json({ poruka: 'Upit je uspješno dodan' });
-    })
-    .catch((error) => {
+  let upit = await db.upiti.create({korisnik_id:korisnik.id, nekretnina_id: nekretnina.id, tekst_upita});
+  res.status(200).json({ poruka: 'Upit je uspješno dodan' });
+  }
+  catch(error) {
       console.error(error);
-      res.status(500).json({ greska: 'Internal Server Error' });
-    });
+      res.status(500).json({ greska: 'Greška' });
+    };
 
 });
 
-app.put('/korisnik', async(req, res) =>{
+app.put('/korisnik', async(req, res) => {
+  try{
     const {ime, prezime, username, password} = req.body;
    
-    var korisnik = req.session.uname;
-    if(!korisnik){
+    var korisnickoIme = req.session.uname;
+    if(!korisnickoIme){
       return res.status(401).json({greska: 'Neautorizovan pristup'});
     }
-    const nekretninePath = path.join(__dirname, 'data', 'korisnici.json');
-    const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
-    const korisnici = JSON.parse(nekretnineData);
-    
-    let idKorisnika = null;
-    console.log("idKorisnika", korisnik);
-    for (let k of korisnici){
-      if (k.username === korisnik){
-        console.log("k username u petlji", k.username);
-        idKorisnika = k.id;
-        break;
-      }
+    let korisnik = await db.korisnici.findOne({where: {username: korisnickoIme}});
+
+    if(ime) korisnik.ime = ime;
+    if(prezime) korisnik.prezime = prezime;
+    if(username) korisnik.username = username;
+    if(password) {
+      let hashiranPassword = await bcrypt.hash("password", 10);
+      korisnik.password = hashiranPassword;
     }
-    //idKorisnika--;
-    console.log("id je ", idKorisnika);
-    if(idKorisnika){
-    if(username){  //id-evi u primjeru u postavci pocinju od jedinice, stoga oduzimam 1
-    korisnici[idKorisnika-1].username = username;
-    req.session.uname = username;  //promjena i u sesiji
-    }
-    if(ime)
-    korisnici[idKorisnika-1].ime = ime;
-    if(prezime)
-    korisnici[idKorisnika-1].prezime = prezime;
-    if(password)
-    korisnici[idKorisnika-1].password = password;
-    console.log(korisnici[idKorisnika]);
-    }
-    console.log(korisnici);
-    await fs.writeFile(nekretninePath, JSON.stringify(korisnici, null, 2), { encoding: 'utf-8' });
+    await korisnik.save();
+    return res.status(200).json({greska: 'Uspjesno ste updateovali'});
+  }
+  catch(error){
+    console.log(error);
+    return res.status(500).json({greska: 'Greska'});
+  }
    
 });
 
 
 app.get('/nekretnine', async (req, res) => {
   try {
-
-    const nekretninePath = path.join(__dirname, 'data', 'nekretnine.json');
-    const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
-    const nekretnine = JSON.parse(nekretnineData);
-
+    let nekretnine = await db.nekretnine.findAll();
     res.status(200).json(nekretnine);
   } catch (error) {
     console.error(error);
-    console.error('Error reading nekretnine.json:', error);
-    res.status(500).json({ greska: 'Internal Server Error' });
+    res.status(500).json({ greska: 'Greška' });
   }});
 
 
   app.post('/marketing/nekretnine', async(req, res) => {
-  //  const { nizNekretninaIds } = req.body.;
-
     try{
-     //req.session.nizPretragaIds = null; //restart na pocetku svakog filtriranja
       const {nizNekretninaIds} = req.body;
-      //req.session.nizPretragaIds = nizNekretninaIds;
-     // const nizNekretninaIds = req.body.nizNekretninaIds;
-      const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
-      const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
-      let nekretnine = JSON.parse(nekretnineData);
-      console.log("+", nekretnine);
-      let rezultat = nekretnine;
-    
-      console.log( "-", nizNekretninaIds);
-      let postoji = 0;
-      let noviPodatak = {};
       for(x of nizNekretninaIds){
-        let postoji = 0;
-        for(el of nekretnine){
-          console.log(el.pretrage);
-            if(x == el.id){
-              console.log("id", x);
-              console.log("idJson", el.id);
-              el.pretrage++;
-              postoji = 1;
-              console.log(el.pretrage);
-
-            }
-        }
-        if(postoji === 0){
-          console.log("x", x);
-          console.log("postoji", postoji);
-          nekretnine.push({id:x, pretrage: 1, klikovi: 0});
-          console.log("ovdje");
-          console.log("pushane nekretnine", nekretnine);
-        }
-       // postoji = 0;
+        let nekretnina = await db.nekretnine.findByPk(x);
+        nekretnina.pretrage += 1;
+        await nekretnina.save();
       }
-      console.log(nekretnine);
-     
-      await fs.writeFile(nekretninePath, JSON.stringify(nekretnine, null, 2), { encoding: 'utf-8' });
+      
       res.status(200).send();
     }
     catch(error){
+      console.log(error);
       res.status(500).send();
     }
   }
   );
 
   app.post('/marketing/nekretnine/:id', async(req, res) => {
-    //  const { nizNekretninaIds } = req.body.;
-  
       try{
-        //req.session.nizKlikovaIds = null; //restart na pocetku svakog filtriranja
-      //const {nizNekretninaIds} = req.body;
-    //  req.session.nizKlikovaIds = req.body;
         let x = JSON.parse(req.params.id);
-        console.log("x", x);
-        //const {nizNekretninaIds} = req.body;
-       // const nizNekretninaIds = req.body.nizNekretninaIds;
-        const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
-        const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
-        let nekretnine = JSON.parse(nekretnineData);
-        console.log("+", nekretnine);
-        //let rezultat = nekretnine;
-      
-       // console.log( "-", nizNekretninaIds);
-        
-      
-     
-          let postoji = 0;
-          for(el of nekretnine){
-            console.log(el.pretrage);
-              if(x == el.id){
-                console.log("id", x);
-                console.log("idJson", el.id);
-                el.klikovi++;
-                postoji = 1;
-                console.log(el.pretrage);
-                break;
-  
-              }
-          }
-          if(postoji === 0){
-            console.log("x", x);
-            console.log("postoji", postoji);
-            nekretnine.push({id:x, pretrage: 0, klikovi: 1});
-            console.log("ovdje");
-            console.log("pushane nekretnine", nekretnine);
-          }
-         // postoji = 0;
-        
-        console.log(nekretnine);
-       
-        await fs.writeFile(nekretninePath, JSON.stringify(nekretnine, null, 2), { encoding: 'utf-8' });
+        let nekretnina = await db.nekretnine.findByPk(x);
+        nekretnina.klikovi += 1;
+        await nekretnina.save();
+
         res.status(200).send();
       }
       catch(error){
+        console.log(error);
         res.status(500).send();
       }
     }
-    );
-
-
+  );
+      
+     
     app.post('/marketing/osvjezi', async(req, res) => {
       try {
-          //console.log("uslo se u marketing/osvjezi");
-          let { nizNekretnina } = req.body;
-          //console.log("U INDEKSU");
-          //console.log("req body", req.body);
-  
+          let {nizNekretnina} = req.body;
+          
           if (Object.keys(req.body).length !== 0) {
               req.session.nizNekretninaS = req.body;
-              //console.log("TIJELO NIJE PRAZNO");
-          } else {
+          } 
+          else {
              // console.log("tijelo je prazno", req.session.nizNekretninaS);
               if(req.session.nizNekretninaS)
               nizNekretnina = req.session.nizNekretninaS.nizNekretnina;
               //console.log("PODACI IZ SESIJE", nizNekretnina);
           }
           
-          
-        
-          //console.log("niz nekretnina", nizNekretnina);
-          //req.session.nizNekretnina = nizNekretnina;
-          //let osvjezene = {};
           let osvjezene = [];
-  
-          const nekretninePath = path.join(__dirname, 'data', 'marketing.json');
-          const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
-          let nekretnine = JSON.parse(nekretnineData);
-  
+        
           if (!Array.isArray(nizNekretnina)) {
             return;
-        }
-          for (x of nizNekretnina) {
-              for (el of nekretnine) {
-                  if (x === el.id) {
-                      osvjezene.push(el);
-                  }
-              }
           }
-  
-         
-          res.status(200).send({ nizNekretnina: osvjezene }); //{nizNekretnina: osvjezene}
-      } catch (error) {
+
+          for (x of nizNekretnina) {
+            let nekretnina = await db.nekretnine.findByPk(x);
+            osvjezene.push(nekretnina);
+            }
+            console.log("OSVJEZENE", osvjezene);
+
+          res.status(200).send({ nizNekretnina: osvjezene}); //{nizNekretnina: osvjezene}
+      } 
+      catch (error) {
           console.error("Error in /marketing/osvjezi:", error);
           res.status(500).send(error);
       }
@@ -457,30 +293,18 @@ app.get('/nekretnine', async (req, res) => {
    
   app.get('/nekretnina/:id', async(req, res) => {
       try{
-        //console.log("uslo se");
-        let x = JSON.parse(req.params.id);
-      // console.log("uslo se");
-        const nekretninePath = path.join(__dirname, 'data', 'nekretnine.json');
-        const nekretnineData = await fs.readFile(nekretninePath, 'utf-8');  //jedna tacka je za current directory!!!
-        let nekretnine = JSON.parse(nekretnineData);
-        console.log("+", nekretnine);
-        let nekretnina;
-          let postoji = 0;
-          for(el of nekretnine){
-            console.log(el.pretrage);
-              if(x == el.id){
-                postoji = 1;
-                nekretnina = el;
-                break;
-              }
-          }
-          if(postoji === 0){ 
-            res.status(400).send({greska: `Nekretnina sa id-em ${x} ne postoji`});
-          }
-          console.log(nekretnina);
-        res.status(200).send({nekretnina});
+        let x = req.params["id"];
+        let nekretnina = await db.nekretnine.findByPk(x);
+        console.log("NEKRETNINA", nekretnina);
+        if(!nekretnina){ 
+          res.status(400).send({greska: `Nekretnina sa id-em ${x} ne postoji`});
+        }
+        let upiti = await db.upiti.findAll({where: {nekretnina_id: x}});
+        console.log("UPITI", upiti);
+        res.status(200).send({nekretnina: nekretnina, upiti: upiti});
       }
       catch(error){
+        console.log(error);
         res.status(500).send();
       }
     }
@@ -488,34 +312,19 @@ app.get('/nekretnine', async (req, res) => {
 
 
     app.get('/korisnik/:id', async(req, res) => {
-      try{
-        //console.log("uslo se");
-        let x = JSON.parse(req.params.id);
-      // console.log("uslo se");
-        const korisniciPath = path.join(__dirname, 'data', 'korisnici.json');
-        const korisniciData = await fs.readFile(korisniciPath, 'utf-8');  //jedna tacka je za current directory!!!
-        let korisnici = JSON.parse(korisniciData);
-        console.log("+", korisnici);
-        let korisnik;
-          let postoji = 0;
-          for(el of korisnici){
-            console.log(el.pretrage);
-              if(x == el.id){
-                postoji = 1;
-                korisnik = el;
-                break;
-              }
-          }
-          if(postoji === 0){ 
+        try{
+          let x = JSON.parse(req.params.id);
+          let korisnik = await db.korisnici.findByPk(x);
+          if(!korisnik){ 
             res.status(400).send({greska: `Korisnik sa id-em ${x} ne postoji`});
           }
-          console.log(korisnik);
-        res.status(200).send({korisnik});
+          res.status(200).send({username: korisnik.username});
+        }
+        catch(error){
+          console.log(error);
+          res.status(500).send();
+        }
       }
-      catch(error){
-        res.status(500).send();
-      }
-    }
     );
 
 app.listen(3000, () => {

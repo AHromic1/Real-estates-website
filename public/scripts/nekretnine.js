@@ -13,6 +13,7 @@
  let prethodnaGod = null;
  let prethodnoOtvoriDugme = null;
  let idNekretnine = null;
+ let spisakIds = [];
 
     function spojiNekretnine(divReferenca, instancaModula, tip_nekretnine) {
       // pozivanje metode za filtriranje
@@ -21,6 +22,9 @@
       let divDetails = document.createElement("div");
        
       for(let x of nekretnine){
+        console.log("nekretnina", x);
+        spisakIds.push(x.id);
+        console.log("U SPOJI NEKRETNINE IDS", spisakIds);
           let divNekretnina = document.createElement("div");
           let imgNekretnina = document.createElement("img");
           let divSubdetails = document.createElement("div");
@@ -30,6 +34,7 @@
           let noviRed = document.createElement("br");
           let divButton = document.createElement("div");
           let detailsButton = document.createElement("button");
+          detailsButton.classList.add("detailsBttn");
           detailsButton.textContent = "Detalji";
           let klikovi = document.createElement("p");
           klikovi.id = `klikovi-${x.id}`;
@@ -166,6 +171,9 @@
           divReferenca.appendChild(divDetails);
 
       }
+
+      localStorage.setItem("nizIds", JSON.stringify(spisakIds));
+
   }
 
  
@@ -222,7 +230,7 @@
 
   function filtriraj() {
    // console.log("usao u funkciju");
-    let minCijena = parseInt(document.getElementById('minCijena').value);
+  let minCijena = parseInt(document.getElementById('minCijena').value);
   let maxCijena = parseInt(document.getElementById('maxCijena').value);
   let maxKvadratura = parseInt(document.getElementById('maxKvadratura').value);
   let minKvadratura = parseInt(document.getElementById('minKvadratura').value);
@@ -230,9 +238,8 @@
   //let kriterij = {};
   if(!maxCijena)
   maxCijena = undefined; 
-
   if(!minCijena)
- minCijena = undefined; 
+  minCijena = undefined; 
   if(!maxKvadratura)
   maxKvadratura = undefined; 
   if(!minKvadratura)
@@ -272,8 +279,8 @@
       divPp = document.getElementById("pp");
 
       spojiNekretnine(divStan, nekretnine2, "Stan");
-        spojiNekretnine(divKuca, nekretnine2, "Kuća");
-        spojiNekretnine(divPp, nekretnine2, "Poslovni prostor");
+      spojiNekretnine(divKuca, nekretnine2, "Kuća");
+      spojiNekretnine(divPp, nekretnine2, "Poslovni prostor");
    
   
       MarketingAjax.novoFiltriranje(filtrirane);

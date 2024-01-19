@@ -6,13 +6,14 @@ const MarketingAjax = (() => {
     let brojacKlikova = 0;
 
 const divNekretnineRoditelj = document.getElementById("divNekretnine");
-    
-  osvjezi = setInterval(() => {
+
+osvjeziKlikove(divNekretnineRoditelj);
+ /* osvjezi = setInterval(() => {
         MarketingAjax.osvjeziKlikove(divNekretnineRoditelj);
-    }, 500);
-    osvjeziP = setInterval(() => {
+    }, 500);*/
+   /* osvjeziP = setInterval(() => {
         MarketingAjax.osvjeziPretrage(divNekretnineRoditelj);
-    }, 500);
+    }, 500);*/
     
  function kontaktirajServer(method, url, data, fnCallback) {
    // console.log("funkcija je pozvana");
@@ -38,6 +39,7 @@ const divNekretnineRoditelj = document.getElementById("divNekretnine");
  
      function osvjeziPretrage(divNekretnine){
         brojacUcitavanja++;
+        console.log("broj ucitavanja");
        // console.log("UCITAVANJA", brojacUcitavanja);
         //console.log("funkcija osvjezi Pretrage je pozvana");
         let divsDugmicima = document.getElementById("divNekretnine");
@@ -82,8 +84,8 @@ const divNekretnineRoditelj = document.getElementById("divNekretnine");
                 const idElement = `pretrage-${x.id}`;
                 let element = divNekretnine.querySelector(`#${idElement}`);
 
-                    //console.log("ovdje");
-                    element.innerText = `Pretrage: ${x.pretrage}`;
+                    console.log("ovdje");
+                element.innerText = `Pretrage: ${x.pretrage}`;
             }
         }
  
@@ -120,15 +122,25 @@ const divNekretnineRoditelj = document.getElementById("divNekretnine");
         }
      
      function osvjeziKlikove(divNekretnine){
+        console.log("uslo se u osvjezi klikove");
         brojacKlikova++;
+        console.log("brojac", brojacKlikova);
        // console.log("funkcija osvjezi Klikove je pozvana");
         let divsDugmicima = document.getElementById("divNekretnine");
-        let dugmici = divsDugmicima.getElementsByTagName("button");
-        let dugmiciNiz = Array.from(dugmici);
-       /// console.log("dugmici", dugmiciNiz);
+       console.log("DIV S DUGMICIMA", divsDugmicima);
+        //let dugmici = divsDugmicima.getElementsByTagName("button");
+        let dugmici = divsDugmicima.querySelectorAll(".detailsBttn");
+        console.log("DUGMAD KAO ELEMENTI", dugmici);
+        //let dugmiciNiz = [...dugmici].map(button => button);
+
+        //let dugmiciNiz = Array.from(dugmici);
+        let retrievedArray = JSON.parse(localStorage.getItem("nizIds"));
+        console.log("retreved", retrievedArray);
+        let dugmiciNiz = retrievedArray;
+       console.log("dugmici", dugmiciNiz);
         let ids = [];
         //console.log("duzina", dugmiciNiz.length);
-        if(brojacKlikova === 1 || noviKlik === true){
+        if(brojacKlikova === 1 || noviKlik === true){ console.log("ispunjeno");
         for (var i = 0; i < dugmiciNiz.length; i++) {
            // console.log("usao u petlju");
             var dugme = dugmiciNiz[i];
@@ -142,13 +154,15 @@ const divNekretnineRoditelj = document.getElementById("divNekretnine");
         }
         noviKlik = false;
     
-        nizNekretnina = ids;
-        //console.log("ids", nizNekretnina);
+        let nizNekretnina = ids;
+        console.log("ids", nizNekretnina);
         //if(noviKlik){
-        kontaktirajServer('POST', '/marketing/osvjezi', {nizNekretnina}, function(error, data){
+        kontaktirajServer('POST', '/marketing/osvjezi', {nizNekretnina}, function(error, data){ console.log("uslo se u server");
             if(data){
+                console.log("ima podataka!!!!!");
             //console.log("Response:", data);
             const osvjezeneNekretnine = data.nizNekretnina;//response.nizNekretnina;
+            console.log("osvjezeneNekretnine", osvjezeneNekretnine);
            // console.log("osvjezene", osvjezeneNekretnine);
             const idNekretnine = null;
             //let element;
@@ -160,10 +174,8 @@ const divNekretnineRoditelj = document.getElementById("divNekretnine");
                // console.log("url", `klikovi-${x.id}`);
                 const idElement = `klikovi-${x.id}`;
                 let element = divNekretnine.querySelector(`#${idElement}`);
-               //console.log("element", element);
- 
-                 //   console.log("ovdje");
-                    element.innerText = `Klikovi: ${x.klikovi}`;
+               console.log("element", element);
+               element.innerText = `Klikovi: ${x.klikovi}`;
             }
         }
         
